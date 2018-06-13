@@ -26,16 +26,23 @@ io.on('connection',(socket)=>{
 
     socket.on('createMessage',(message)=>{
         console.log(message);
-        io.emit('newMessage',{
-            from:message.from,
-            text:message.text,
-            createdAt:new Date().getTime()
-        })
     });
 
     socket.on('disconnect',()=>{
         console.log('User disconnected');
     });
+
+    socket.emit('newMessage',{
+        from:'ADMIN',
+        text:'WELCOME USER',
+        time: new Date().getTime()
+    })
+
+    socket.broadcast.emit('newMessage',{
+        from:'ADMIN',
+        text:'A USER HAS JOINED US',
+        time: new Date().getTime()
+    })
 })
 
 
