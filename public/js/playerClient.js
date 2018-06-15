@@ -25,7 +25,7 @@ function render(updatedWorld){
     console.log('updatedrender')
     canvasContext.fillStyle='#DDDDDD';
     canvasContext.fillRect(0,0,300,300);
-    consaole.log(JSON.stringify(updatedWorld.players,undefined,2));
+    console.log(JSON.stringify(updatedWorld.players,undefined,2));
 
     for (var player in updatedWorld.players){
         console.log(JSON.stringify(player,undefined,2));
