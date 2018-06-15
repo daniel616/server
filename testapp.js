@@ -1,49 +1,66 @@
-const path = require('path');
 const express=require('express');
-const hbs=require('hbs');
 const socketIO=require('socket.io');
 const http=require('http');
+const messages=require('./utils/message');
+const worldEntities=require('./worldEntities');
 
 var app=express();
 var server = http.createServer(app);
 var io=socketIO(server);
 
-app.set('view engine','hbs');
+var playerSockets=[];
+var players={};
+var dynamicObjects=[];
 
 app.use(express.static(__dirname+'/public'));
 
-hbs.registerPartials(__dirname+'/views/partials');
-
-
-app.get('/portfolio',(req,res)=>{
-    res.render('portfolio.hbs',{
-        message:'I hop you lik my footer'
-    })
-})
 
 io.on('connection',(socket)=>{
     console.log('New user connected');
+    console.log(typeof socket.id);
+    playerSockets.push(socket);
+    console.log(socket.id);
+    players[socket.id]=new worldEntities.Player('wer');
+    console.log(JSON.stringify(players));
+    console.log(JSON.stringify(players[socket.id],undefined,2));
+
 
     socket.on('createMessage',(message)=>{
-        console.log(message);
+        socket.broadcast.emit('newMessage',
+            messages.generateMessage(message.from,message.text));
     });
 
     socket.on('disconnect',()=>{
         console.log('User disconnected');
+        playerSockets.splice(playerSockets.indexOf(socket),1);
+        delete players[socket.id];
     });
 
-    socket.emit('newMessage',{
-        from:'ADMIN',
-        text:'WELCOME USER',
-        time: new Date().getTime()
-    })
+    socket.emit('newMessage',
+        messages.generateMessage('ADMIN','WELCOME'));
 
-    socket.broadcast.emit('newMessage',{
-        from:'ADMIN',
-        text:'A USER HAS JOINED US',
-        time: new Date().getTime()
-    })
+    socket.broadcast.emit('newMessage',
+        messages.generateMessage('ADMIN','A NEW USER HAS JOINED US'));
 })
+
+function update(dt){
+    playerSockets.forEach((playerSocket)=>updatePlayerClient(playerSocket));
+}
+
+function updatePlayerClient(playerSocket){
+    playerSocket.emit('update',{
+        players,
+        dynamicObjects,
+        time:new Date().getTime()
+    },function(playerAction){
+
+        //Later executes these actions in internal server
+        console.log(playerAction.toString());
+        console.log(playerAction.length);
+        players[playerSocket.id].move(playerAction);
+    });
+}
+
 
 
 const port=process.env.PORT||3000;
@@ -53,3 +70,13 @@ server.listen(port, ()=>{
     console.log(`Server is up on port ${port}`);
 });
 
+function constUpdate(dt) {
+    update(dt);
+    console.log('Update');
+    setTimeout(() => {
+        constUpdate(dt)
+    }, 1000*dt);
+}
+
+
+constUpdate(0.1);
