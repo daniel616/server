@@ -41,27 +41,27 @@ io.on('connection',(socket)=>{
 
     socket.broadcast.emit('newMessage',
         messages.generateMessage('ADMIN','A NEW USER HAS JOINED US'));
+
+    socket.on('getWorldInfo',(callback)=>{
+        callback({
+            players,
+            dynamicObjects
+        });
+    })
 })
 
 function update(dt){
-    playerSockets.forEach((playerSocket)=>updatePlayerClient(playerSocket));
+    playerSockets.forEach((playerSocket)=>fetchPlayerCommands(playerSocket));
 }
 
-function updatePlayerClient(playerSocket){
-    playerSocket.emit('update',{
-        players,
-        dynamicObjects,
-        time:new Date().getTime()
-    },function(playerAction){
-
+function fetchPlayerCommands(playerSocket){
+    playerSocket.emit('fetchCommands', function(playerAction){
         //Later executes these actions in internal server
         console.log(playerAction.toString());
         console.log(playerAction.length);
         players[playerSocket.id].move(playerAction);
     });
 }
-
-
 
 const port=process.env.PORT||3000;
 
@@ -72,11 +72,10 @@ server.listen(port, ()=>{
 
 function constUpdate(dt) {
     update(dt);
-    console.log('Update');
     setTimeout(() => {
         constUpdate(dt)
     }, 1000*dt);
 }
 
 
-constUpdate(0.1);
+constUpdate(0.03);

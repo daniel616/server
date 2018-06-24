@@ -2,11 +2,11 @@ var playerSocket=io();
 var keys=[];
 var canvasContext=$('#gameArea').get(0).getContext('2d');
 
+var timeSinceRender=0;
 
 
-playerSocket.on('update',(updatedWorld, playerActionCallback)=>{
-    console.log(JSON.stringify(updatedWorld,undefined,2));
-    render(updatedWorld);
+
+playerSocket.on('fetchCommands',(playerActionCallback)=>{
     playerActionCallback(fetchPlayerActions());
 });
 
@@ -22,7 +22,7 @@ window.addEventListener('keyup',
     });
 
 function render(updatedWorld){
-    console.log('updatedrender')
+    console.log('updatedrender');
     canvasContext.fillStyle='#DDDDDD';
     canvasContext.fillRect(0,0,300,300);
     console.log(JSON.stringify(updatedWorld.players,undefined,2));
@@ -49,3 +49,14 @@ function fetchPlayerActions(){
 
     return pressedKeys;
 }
+
+
+function constUpdate(dt) {
+    playerSocket.emit('getWorldInfo',render);
+    setTimeout(() => {
+        constUpdate(dt)
+    }, 1000*dt);
+}
+
+
+constUpdate(0.05);
