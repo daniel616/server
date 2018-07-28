@@ -2,7 +2,11 @@ var playerSocket=io();
 var keys=[];
 var canvasContext=$('#gameArea').get(0).getContext('2d');
 
+var worldInfoQueue;
+
 var timeSinceRender=0;
+
+var update_rate=20;
 
 
 
@@ -36,6 +40,9 @@ function render(updatedWorld){
             canvasContext.fillRect(x-20,y-20,40,40);
        // }
 
+
+
+
     }
 }
 
@@ -58,5 +65,9 @@ function constUpdate(dt) {
     }, 1000*dt);
 }
 
+function update(){
+    playerSocket.emit('getWorldInfo',render);
+}
 
-constUpdate(0.05);
+const update_interval = setInterval(update, 1000 / update_rate);
+//constUpdate(0.05);

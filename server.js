@@ -14,6 +14,7 @@ var dynamicObjects=[];
 
 app.use(express.static(__dirname+'/public'));
 
+const update_rate=50;
 
 io.on('connection',(socket)=>{
     console.log('New user connected');
@@ -23,7 +24,6 @@ io.on('connection',(socket)=>{
     players[socket.id]=new worldEntities.Player('wer');
     console.log(JSON.stringify(players));
     console.log(JSON.stringify(players[socket.id],undefined,2));
-
 
     socket.on('createMessage',(message)=>{
         socket.broadcast.emit('newMessage',
@@ -70,12 +70,6 @@ server.listen(port, ()=>{
     console.log(`Server is up on port ${port}`);
 });
 
-function constUpdate(dt) {
-    update(dt);
-    setTimeout(() => {
-        constUpdate(dt)
-    }, 1000*dt);
-}
 
 
-constUpdate(0.03);
+const update_interval = setInterval(update, 1000 / update_rate);
