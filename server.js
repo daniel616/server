@@ -57,8 +57,8 @@ function update(dt){
 function fetchPlayerCommands(playerSocket){
     playerSocket.emit('fetchCommands', function(playerAction){
         //Later executes these actions in internal server
-        console.log(playerAction.toString());
-        console.log(playerAction.length);
+        //console.log(playerAction.toString());
+        //console.log(playerAction.length);
         players[playerSocket.id].move(playerAction);
     });
 }

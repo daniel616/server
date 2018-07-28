@@ -21,7 +21,7 @@ function handleMoveCommands(player, commands) {
     if(commands.indexOf('65')!=-1){
         player.x-=speed;
     }
-    console.log(`${player.x},${player.y}`);
+    //console.log(`${player.x},${player.y}`);
 }
 
 module.exports={Player};
