@@ -36,6 +36,8 @@ io.on('connection',(socket)=>{
         delete players[socket.id];
     });
 
+
+
     socket.emit('newMessage',
         messages.generateMessage('ADMIN','WELCOME'));
 
@@ -48,6 +50,11 @@ io.on('connection',(socket)=>{
             dynamicObjects
         });
     })
+
+    socket.on('Ping',(callback)=>{
+        callback();
+        console.log('got pinged');
+    });
 })
 
 function update(dt){

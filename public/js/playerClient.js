@@ -26,23 +26,14 @@ window.addEventListener('keyup',
     });
 
 function render(updatedWorld){
-    console.log('updatedrender');
     canvasContext.fillStyle='#DDDDDD';
     canvasContext.fillRect(0,0,300,300);
-    //console.log(JSON.stringify(updatedWorld.players,undefined,2));
 
     for (var player in updatedWorld.players){
-        console.log(JSON.stringify(player,undefined,2));
-        //if(updatedWorld.players.hasOwnProperty(player)){
             canvasContext.fillStyle='#5000ff';
             var x= updatedWorld.players[player].x;
             var y=updatedWorld.players[player].y;
             canvasContext.fillRect(x-20,y-20,40,40);
-       // }
-
-
-
-
     }
 }
 
@@ -58,16 +49,25 @@ function fetchPlayerActions(){
 }
 
 
-function constUpdate(dt) {
-    playerSocket.emit('getWorldInfo',render);
-    setTimeout(() => {
-        constUpdate(dt)
-    }, 1000*dt);
-}
-
 function update(){
     playerSocket.emit('getWorldInfo',render);
 }
 
-const update_interval = setInterval(update, 1000 / update_rate);
+function getLatency(){
+    var currentTime=new Date();
+    playerSocket.emit('Ping',function(){
+        var newTime = new Date();
+        var message='Latency: '+(newTime-currentTime);
+        console.log(newTime);
+        console.log(currentTime);
+        $('#latency').get(0).innerHTML=message;
+        console.log('we');
+    });
+}
+
+
+
+const latency_interval= setInterval(getLatency,1000);
+const update_interval = setInterval(update, 1000/update_rate);
+
 //constUpdate(0.05);
