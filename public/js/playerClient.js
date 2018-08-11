@@ -6,13 +6,21 @@ var worldInfoQueue;
 
 var timeSinceRender=0;
 
-var update_rate=20;
+var update_rate=10;
 
-
+var userName='DIO';
 
 playerSocket.on('fetchCommands',(playerActionCallback)=>{
     playerActionCallback(fetchPlayerActions());
 });
+
+playerSocket.emit('getMessageHistory',function(){
+
+});
+
+playerSocket.on('newMessage',(message)=>{
+    renderMessage(message);
+})
 
 
 window.addEventListener('keydown',
@@ -26,7 +34,7 @@ window.addEventListener('keyup',
     });
 
 function render(updatedWorld){
-    canvasContext.fillStyle='#DDDDDD';
+    canvasContext.fillStyle='#AAA';
     canvasContext.fillRect(0,0,300,300);
 
     for (var player in updatedWorld.players){
@@ -57,12 +65,27 @@ function getLatency(){
     var currentTime=new Date();
     playerSocket.emit('Ping',function(){
         var newTime = new Date();
-        var message='Latency: '+(newTime-currentTime);
-        console.log(newTime);
-        console.log(currentTime);
+        var message='Latency: '+(newTime-currentTime)+'ms';
         $('#latency').get(0).innerHTML=message;
-        console.log('we');
     });
+}
+
+function sendMessage(){
+    var text= $('#message').val();
+    if(text.length==0||text.length>250){
+        return;
+    }
+
+    playerSocket.emit('createMessage',{
+        from:userName,
+        text:text
+    });
+    $('#message').val('');
+}
+
+function renderMessage(message){
+    var formattedText=message.from+ ': '+ message.text;
+    $('#previousMessages').append($('<li>').text(formattedText));
 }
 
 

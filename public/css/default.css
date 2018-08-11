@@ -1,0 +1,35 @@
+html,body {
+    font-family:"Times New Roman",serif;
+}
+
+a{
+    text-decoration: none;
+}
+
+#navbar{
+    /*width:100%;*/
+    text-decoration-line: none;
+    background-color:lightblue;
+    position:sticky;
+    padding: 10px 10px 10px 0;
+    overflow:scroll;
+
+
+}
+
+.nav-link{
+    padding:10px 20px 10px 0px;
+    justify-content:flex-start;
+    font-size:1.5em;
+
+    color:black;
+}
+
+.nav-link:hover{
+    color:grey;
+    border-left: solid thin;
+}
+
+#main{
+    padding:10px;
+}
