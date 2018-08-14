@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bump.js": "^1.0.3",
     "express": "^4.16.3",
     "install": "^0.12.1",
     "npm": "^6.2.0",

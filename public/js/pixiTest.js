@@ -1,6 +1,6 @@
-let playerSocket=io();
 let keys=[];
-let clientSprites=[];
+let clientSprites={};
+let staticPlatformSprites={};
 
 let update_rate=10;
 
@@ -15,8 +15,7 @@ if(!PIXI.utils.isWebGLSupported()){
 PIXI.utils.sayHello(type);
 
 //Create a Pixi Application
-let app = new PIXI.Application({width: 256, height: 256});
-app.renderer.resize(window.innerWidth, window.innerHeight);
+let app = new PIXI.Application({width: 900, height: 600});
 app.renderer.backgroundColor = 0xf0f0f0;
 
 //Add the canvas that Pixi automatically created for you to the HTML document
@@ -29,15 +28,31 @@ const resources=Loader.resources;
 Loader.add(["assets/bomb.png","assets/platform.png","assets/dude.png"])
     .load(setup);
 
-function setup(){
-    function loadNewPlayer(playerInfo) {
-        let newSprite = new PIXI.Sprite(PIXI.loader.resources["assets/bomb.png"].texture);
-        clientSprites[playerInfo.socketID] = newSprite;
-        newSprite.x = playerInfo.x;
-        newSprite.y = playerInfo.y;
-        app.stage.addChild(newSprite);
-    }
+function loadNewPlayer(playerInfo,socketID) {
+    let newSprite = new Sprite(resources["assets/bomb.png"].texture);
+    clientSprites[socketID] = newSprite;
+    newSprite.x = playerInfo.x;
+    newSprite.y = playerInfo.y;
+    newSprite.width=playerInfo.width;
+    newSprite.height=playerInfo.height;
+    app.stage.addChild(newSprite);
+}
 
+
+function loadNewPlatform(platformData){
+    console.log('Loading platform');
+    let newSprite=new Sprite(resources["assets/platform.png"].texture);
+    console.log(JSON.stringify(platformData));
+    newSprite.x=platformData.x;
+    newSprite.y=platformData.y;
+    newSprite.width=platformData.width;
+    newSprite.height=platformData.height;
+    console.log('x,y'+platformData.x+platformData.y);
+    app.stage.addChild(newSprite);
+
+}
+
+function setup(){
     window.addEventListener('keydown',
         function(e){
             keys[e.keyCode]=true;
@@ -48,33 +63,42 @@ function setup(){
             keys[e.keyCode]=false;
         });
 
-    playerSocket.on('newPlayer',(playerInfo)=>loadNewPlayer(playerInfo));
+    playerSocket.on('newPlayer',(playerInfo)=>loadNewPlayer(playerInfo.player,playerInfo.socketID));
 
     playerSocket.on('fetchCommands',(playerActionCallback)=>{
         playerActionCallback(fetchPlayerActions());
     });
 
-    playerSocket.on('disconnect',(socketID)=>{
+    playerSocket.on('otherDisconnect',(socketID)=>{
+        console.log('disconnected socketID: '+socketID);
         clientSprites[socketID].visible=false;
     });
 
-    playerSocket.emit('handShake',(playerDataCollection)=>{
+    playerSocket.emit('handShake',(worldData)=>{
+        let playerDataCollection=worldData.playerDataCollection;
         for(var socketID in playerDataCollection){
             if(playerDataCollection.hasOwnProperty(socketID)){
-                loadNewPlayer(playerDataCollection[socketID]);
+                loadNewPlayer(playerDataCollection[socketID],socketID);
             }
         }
 
-        const update_interval = setInterval(update, 1000/update_rate);
+        console.log('length: '+worldData.staticPlatforms.length);
+        console.log('all platforms: '+ JSON.stringify(worldData.staticPlatforms));
+        for(var i=0;i<worldData.staticPlatforms.length;i++){
+            let platform=worldData.staticPlatforms[i];
+            //console.log(JSON.stringify(platform));
+            loadNewPlatform(platform);
+        }
 
+        const update_interval = setInterval(update, 1000/update_rate);
     });
 }
 
 function fetchPlayerActions(){
     let pressedKeys=[];
-    for(variable in keys) {
-        if(keys[variable]===true){
-            pressedKeys.push(variable.toString());
+    for(var key in keys) {
+        if(keys[key]===true){
+            pressedKeys.push(key.toString());
         }
     }
 
@@ -82,97 +106,16 @@ function fetchPlayerActions(){
 }
 
 function render(updatedWorld){
-    for (var player in updatedWorld.players){
-        if (updatedWorld.players.hasOwnProperty(player)) {
-            console.log('player: '+JSON.stringify(updatedWorld.players[player]));
-            let clientSprite=clientSprites[updatedWorld.players[player].socketID];
-            clientSprite.x=updatedWorld.players[player].x;
-            clientSprite.y=updatedWorld.players[player].y;
-
-
-            console.log('found property');
+    for (var socketID in updatedWorld.players){
+        if (updatedWorld.players.hasOwnProperty(socketID)) {
+            let clientSprite=clientSprites[socketID];
+            clientSprite.x=updatedWorld.players[socketID].x;
+            clientSprite.y=updatedWorld.players[socketID].y;
         }
     }
 }
 
 function update(){
     playerSocket.emit('getWorldInfo',render);
-}
-
-
-
-
-function setUpPlayerMovement(){
-
-    let left=keyboard(65);
-    left.press=function(event){
-        player.vx=-1;
-    };
-    left.release=function(event){
-        player.vx=0;
-    };
-
-    let right=keyboard(68);
-    right.press=function(event){
-        player.vx=1;
-    };
-    right.release=function(event){
-        player.vx=0;
-    };
-
-    let up=keyboard(87);
-    up.press=function(event){
-        player.vy=-1;
-    };
-    up.release=function(event){
-        player.vy=0;
-    };
-
-    let down=keyboard(83);
-    down.press=function(event){
-        player.vy=1;
-    };
-    down.release=function(event){
-        player.vy=0;
-    };
-
-    function keyboard(keyCode) {
-        let key = {};
-        key.code = keyCode;
-        key.isDown = false;
-        key.isUp = true;
-        key.press = undefined;
-        key.release = undefined;
-        //The `downHandler`
-        key.downHandler = event => {
-            //alert(event.keyCode);
-            if (event.keyCode === key.code) {
-                if (key.isUp && key.press) key.press();
-                key.isDown = true;
-                key.isUp = false;
-            }
-            event.preventDefault();
-        };
-
-        //The `upHandler`
-        key.upHandler = event => {
-            if (event.keyCode === key.code) {
-                if (key.isDown && key.release) key.release();
-                key.isDown = false;
-                key.isUp = true;
-            }
-            event.preventDefault();
-        };
-
-        //Attach event listeners
-        window.addEventListener(
-            "keydown", key.downHandler.bind(key), false
-        );
-        window.addEventListener(
-            "keyup", key.upHandler.bind(key), false
-        );
-        return key;
-    }
 
 }
-

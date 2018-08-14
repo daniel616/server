@@ -7,7 +7,7 @@ playerSocket.emit('getMessageHistory',function(){
 
 playerSocket.on('newMessage',(message)=>{
     renderMessage(message);
-});
+})
 
 
 function getLatency(){

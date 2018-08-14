@@ -1,27 +1,34 @@
-function Player(playerName,socketID) {
+function Player(playerName) {
     this.playerName = playerName;
-    this.socketID =socketID;
     this.x = 0;
     this.y = 0;
-    this.move = function (commands) {
-        handleMoveCommands(this,commands);
-    };
+    this.vy= 0;
+    this.vx=0;
+    this.width=20;
+    this.height=50;
 }
 
 function handleMoveCommands(player, commands) {
     var speed =5;
     if(commands.indexOf('87')!==-1){
-        player.y-=speed;
+        player.y-=5;
     }
     if(commands.indexOf('83')!==-1){
-        player.y+=speed;
+        player.y+=5;
     }
     if(commands.indexOf('68')!==-1){
-        player.x+=speed;
+        player.x+=5;
     }
     if(commands.indexOf('65')!==-1){
-        player.x-=speed;
+        player.x-=5;
     }
 }
 
-module.exports={Player};
+function Platform(x,y,width,height){
+    this.x=x;
+    this.y=y;
+    this.width=width;
+    this.height=height;
+}
+
+module.exports={Player,handleMoveCommands,Platform};
