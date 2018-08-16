@@ -17,18 +17,19 @@ var dynamicObjects=[];
 
 const HEIGHT=600;
 const WIDTH=900;
-
-
+const HEALTH_MAX=10;
+let spawnLeft=true;
 
 app.use(express.static(__dirname+'/public'));
 
-const update_rate=50;
+const update_rate=10;
 
 io.on('connection',(socket)=>{
     socket.on('handShake',(callback)=>{
         console.log('New user connected: '+socket.id);
         playerSockets[socket.id]=socket;
         let playerData=new worldEntities.Player('wer');
+        respawnPlayer(playerData);
         playerDataCollection[socket.id]= playerData;
         socket.broadcast.emit('newPlayer',{player:playerData,socketID:socket.id});
         callback({playerDataCollection,staticPlatforms});
@@ -45,9 +46,6 @@ io.on('connection',(socket)=>{
         socket.broadcast.emit('otherDisconnect', socket.id);
     });
 
-    io.sockets.emit('newMessage',
-        messages.generateMessage('ADMIN','A NEW USER HAS JOINED US'));
-
     socket.on('getWorldInfo',(callback)=>{
         callback({
             players: playerDataCollection,
@@ -58,7 +56,20 @@ io.on('connection',(socket)=>{
     socket.on('Ping',(callback)=>{
         callback();
     });
+
+    io.sockets.emit('newMessage',
+        messages.generateMessage('ADMIN','A NEW USER HAS JOINED US'));
+
 });
+
+function respawnPlayer(playerData){
+    playerData.health=HEALTH_MAX;
+
+    let xPos=spawnLeft? 0:WIDTH-playerData.width;
+    playerData.x=xPos;
+    playerData.y=10;
+    spawnLeft=!spawnLeft;
+}
 
 function initializeWorld(){
     staticPlatforms.push(new worldEntities.Platform(0,100,60,500));
@@ -75,9 +86,27 @@ function update(dt){
     }
 }
 
+function handleMoveCommands(player, commands) {
+    var speed =25;
+    if(commands.indexOf('87')!==-1){
+        player.y-=speed;
+    }
+    if(commands.indexOf('83')!==-1){
+        player.y+=speed;
+    }
+    if(commands.indexOf('68')!==-1){
+        player.x+=speed;
+    }
+    if(commands.indexOf('65')!==-1){
+        player.x-=speed;
+    }
+    if(commands.indexOf('')!==-1){
+    }
+}
+
 function respondPlayerCommands(playerSocket){
     playerSocket.emit('fetchCommands', function(playerAction){
-        worldEntities.handleMoveCommands(playerDataCollection[playerSocket.id],playerAction);
+        handleMoveCommands(playerDataCollection[playerSocket.id],playerAction);
         for(let i=0;i<staticPlatforms.length;i++){
             Bump.rectangleCollision(playerDataCollection[playerSocket.id],staticPlatforms[i]);
         }

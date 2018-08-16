@@ -25,11 +25,12 @@ const Loader=PIXI.loader;
 const Sprite=PIXI.Sprite;
 const resources=Loader.resources;
 
-Loader.add(["assets/bomb.png","assets/platform.png","assets/dude.png"])
+Loader.add(["assets/bomb.png","assets/platform.png","assets/dude.png","assets/run.json","assets/projectile.json"])
     .load(setup);
 
 function loadNewPlayer(playerInfo,socketID) {
-    let newSprite = new Sprite(resources["assets/bomb.png"].texture);
+    let baronID=resources["assets/run.json"].textures;
+    let newSprite = new Sprite(baronID["baron_run0001.png"]);
     clientSprites[socketID] = newSprite;
     newSprite.x = playerInfo.x;
     newSprite.y = playerInfo.y;
@@ -86,7 +87,6 @@ function setup(){
         console.log('all platforms: '+ JSON.stringify(worldData.staticPlatforms));
         for(var i=0;i<worldData.staticPlatforms.length;i++){
             let platform=worldData.staticPlatforms[i];
-            //console.log(JSON.stringify(platform));
             loadNewPlatform(platform);
         }
 

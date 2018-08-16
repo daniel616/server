@@ -4,24 +4,10 @@ function Player(playerName) {
     this.y = 0;
     this.vy= 0;
     this.vx=0;
-    this.width=20;
-    this.height=50;
-}
-
-function handleMoveCommands(player, commands) {
-    var speed =5;
-    if(commands.indexOf('87')!==-1){
-        player.y-=5;
-    }
-    if(commands.indexOf('83')!==-1){
-        player.y+=5;
-    }
-    if(commands.indexOf('68')!==-1){
-        player.x+=5;
-    }
-    if(commands.indexOf('65')!==-1){
-        player.x-=5;
-    }
+    this.health=10;
+    this.width=50;
+    this.height=70;
+    this.timeSinceAttack=0;
 }
 
 function Platform(x,y,width,height){
@@ -31,4 +17,15 @@ function Platform(x,y,width,height){
     this.height=height;
 }
 
-module.exports={Player,handleMoveCommands,Platform};
+function attack(x,y,width,height,sourceID,existTime){
+    this.x=x;
+    this.y=y;
+    this.width=width;
+    this.height=height;
+    this.sourceID=sourceID;
+    this.existTime=existTime;
+
+
+}
+
+module.exports={Player,Platform};
