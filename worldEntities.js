@@ -24,8 +24,6 @@ function attack(x,y,width,height,sourceID,existTime){
     this.height=height;
     this.sourceID=sourceID;
     this.existTime=existTime;
-
-
 }
 
-module.exports={Player,Platform};
+module.exports={Player,Platform,attack};

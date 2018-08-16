@@ -2,7 +2,7 @@ const express=require('express');
 const socketIO=require('socket.io');
 const http=require('http');
 const Bump=require('./bastBump');
-const messages=require('./utils/message');
+//const messages=require('./utils/message');
 const worldEntities=require('./worldEntities');
 
 
@@ -22,7 +22,7 @@ let spawnLeft=true;
 
 app.use(express.static(__dirname+'/public'));
 
-const update_rate=10;
+const UPDATE_INTERVAL_MS=100;
 
 io.on('connection',(socket)=>{
     socket.on('handShake',(callback)=>{
@@ -37,7 +37,7 @@ io.on('connection',(socket)=>{
 
     socket.on('createMessage',(message)=>{
         io.sockets.emit('newMessage',
-            messages.generateMessage(message.from,message.text));
+            new generateMessage(message.from,message.text));
     });
 
     socket.on('disconnect',()=>{
@@ -46,21 +46,19 @@ io.on('connection',(socket)=>{
         socket.broadcast.emit('otherDisconnect', socket.id);
     });
 
-    socket.on('getWorldInfo',(callback)=>{
-        callback({
-            players: playerDataCollection,
-            dynamicObjects
-        });
-    });
-
     socket.on('Ping',(callback)=>{
         callback();
     });
 
     io.sockets.emit('newMessage',
-        messages.generateMessage('ADMIN','A NEW USER HAS JOINED US'));
+        new generateMessage('ADMIN','A NEW USER HAS JOINED US'));
 
 });
+
+function generateMessage(from,text){
+    this.from=from;
+    this.text=text;
+}
 
 function respawnPlayer(playerData){
     playerData.health=HEALTH_MAX;
@@ -79,9 +77,19 @@ function initializeWorld(){
 }
 
 function update(dt){
+    //console.log('updated');
     for(let socketID in playerSockets){
         if(playerSockets.hasOwnProperty(socketID)&&playerDataCollection.hasOwnProperty(socketID)){
-            respondPlayerCommands(playerSockets[socketID]);
+            const individualSocket=playerSockets[socketID];
+
+            individualSocket.emit('fetchCommands', function(playerAction){
+                handleMoveCommands(playerDataCollection[socketID],playerAction);
+                for(let i=0;i<staticPlatforms.length;i++){
+                    Bump.rectangleCollision(playerDataCollection[socketID],staticPlatforms[i]);
+                }
+            });
+
+            individualSocket.emit('worldInfo',{players:playerDataCollection,dynamicObjects});
         }
     }
 }
@@ -104,20 +112,11 @@ function handleMoveCommands(player, commands) {
     }
 }
 
-function respondPlayerCommands(playerSocket){
-    playerSocket.emit('fetchCommands', function(playerAction){
-        handleMoveCommands(playerDataCollection[playerSocket.id],playerAction);
-        for(let i=0;i<staticPlatforms.length;i++){
-            Bump.rectangleCollision(playerDataCollection[playerSocket.id],staticPlatforms[i]);
-        }
-    });
-}
-
 const port=process.env.PORT||3000;
 
 server.listen(port, ()=>{
     initializeWorld();
     console.log(`Server is up on port ${port}`);
-});
 
-const update_interval = setInterval(update, 1000 / update_rate);
+    const update_interval = setInterval(update, UPDATE_INTERVAL_MS);
+});

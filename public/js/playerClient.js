@@ -1,8 +1,13 @@
 let keys=[];
 let clientSprites={};
+
 let staticPlatformSprites={};
 
-let update_rate=10;
+let worldDataQueue=[];
+let interpA;
+let interpB;
+
+const RENDER_INTERVAL=10;
 
 let userName='DIO';
 
@@ -75,6 +80,10 @@ function setup(){
         clientSprites[socketID].visible=false;
     });
 
+    playerSocket.on('worldInfo',(worldData)=>{
+        dataQueue.enqueueData(worldData);
+    });
+
     playerSocket.emit('handShake',(worldData)=>{
         let playerDataCollection=worldData.playerDataCollection;
         for(var socketID in playerDataCollection){
@@ -90,7 +99,7 @@ function setup(){
             loadNewPlatform(platform);
         }
 
-        const update_interval = setInterval(update, 1000/update_rate);
+        const update_interval = setInterval(()=>update(RENDER_INTERVAL), RENDER_INTERVAL);
     });
 }
 
@@ -106,7 +115,8 @@ function fetchPlayerActions(){
 }
 
 function render(updatedWorld){
-    for (var socketID in updatedWorld.players){
+    console.log('tried to render')
+    for (let socketID in updatedWorld.players){
         if (updatedWorld.players.hasOwnProperty(socketID)) {
             let clientSprite=clientSprites[socketID];
             clientSprite.x=updatedWorld.players[socketID].x;
@@ -115,7 +125,26 @@ function render(updatedWorld){
     }
 }
 
-function update(){
-    playerSocket.emit('getWorldInfo',render);
+function update(dt){
+    function interpData(interpA,interpB,interpRatio){
+        const players=interpA.players;
+        const updatedPlayers=interpB.players;
+        for (let socketID in players){
+            if (players.hasOwnProperty(socketID)&&updatedPlayers.hasOwnProperty(socketID)) {
+                let clientSprite=clientSprites[socketID];
+                let oldPlayer=players[socketID];
+                let newPlayer=updatedPlayers[socketID];
+                clientSprite.x=(newPlayer.x-oldPlayer.x)*interpRatio+oldPlayer.x;
+                clientSprite.y=(newPlayer.y-oldPlayer.y)*interpRatio+oldPlayer.y;
+            }
+        }
+    }
+    if(dataQueue.canInterp){
 
+        let data=dataQueue.interpData;
+        interpData(data.interpA,data.interpB,data.interpRatio);
+        dataQueue.timeStep(dt);
+
+        console.log(data.interpRatio);
+    }
 }
