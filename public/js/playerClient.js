@@ -1,11 +1,9 @@
-let keys=[];
-let clientSprites={};
+'use strict';
 
-let staticPlatformSprites={};
 
-let worldDataQueue=[];
-let interpA;
-let interpB;
+let keyPresses=[];
+
+let sprites={};
 
 const RENDER_INTERVAL=10;
 
@@ -30,54 +28,53 @@ const Loader=PIXI.loader;
 const Sprite=PIXI.Sprite;
 const resources=Loader.resources;
 
-Loader.add(["assets/bomb.png","assets/platform.png","assets/dude.png","assets/run.json","assets/projectile.json"])
+Loader.add(["assets/bomb.png","assets/platform.png","assets/run.json","assets/projectile.json"])
     .load(setup);
 
-function loadNewPlayer(playerInfo,socketID) {
-    let baronID=resources["assets/run.json"].textures;
-    let newSprite = new Sprite(baronID["baron_run0001.png"]);
-    clientSprites[socketID] = newSprite;
-    newSprite.x = playerInfo.x;
-    newSprite.y = playerInfo.y;
-    newSprite.width=playerInfo.width;
-    newSprite.height=playerInfo.height;
+
+function loadSprite(objectData){
+    let newSprite;
+    let renderFiles=mappings[objectData.renderKey];
+    let JSONfile=renderFiles.JSONfile;
+    let spriteImage=renderFiles.spriteImage;
+    if(JSONfile){
+        let textures=resources["assets/"+JSONfile].textures;
+        newSprite = new Sprite(textures[spriteImage]);
+    }else{
+        newSprite=new Sprite(resources["assets/"+spriteImage].texture);
+    }
+    newSprite.x = objectData.x;
+    newSprite.y = objectData.y;
+    newSprite.width=objectData.width;
+    newSprite.height=objectData.height;
+    return newSprite;
+}
+
+function loadDynamicEntity(entityInfo){
+    let newSprite=loadSprite(entityInfo);
+    sprites[entityInfo.id]=newSprite;
     app.stage.addChild(newSprite);
 }
 
-
 function loadNewPlatform(platformData){
-    console.log('Loading platform');
-    let newSprite=new Sprite(resources["assets/platform.png"].texture);
-    console.log(JSON.stringify(platformData));
-    newSprite.x=platformData.x;
-    newSprite.y=platformData.y;
-    newSprite.width=platformData.width;
-    newSprite.height=platformData.height;
-    console.log('x,y'+platformData.x+platformData.y);
+    let newSprite=loadSprite(platformData);
     app.stage.addChild(newSprite);
-
 }
 
 function setup(){
     window.addEventListener('keydown',
         function(e){
-            keys[e.keyCode]=true;
+            keyPresses[e.keyCode]=true;
         });
 
     window.addEventListener('keyup',
         function(e){
-            keys[e.keyCode]=false;
+            keyPresses[e.keyCode]=false;
         });
 
-    playerSocket.on('newPlayer',(playerInfo)=>loadNewPlayer(playerInfo.player,playerInfo.socketID));
 
     playerSocket.on('fetchCommands',(playerActionCallback)=>{
         playerActionCallback(fetchPlayerActions());
-    });
-
-    playerSocket.on('otherDisconnect',(socketID)=>{
-        console.log('disconnected socketID: '+socketID);
-        clientSprites[socketID].visible=false;
     });
 
     playerSocket.on('worldInfo',(worldData)=>{
@@ -85,28 +82,21 @@ function setup(){
     });
 
     playerSocket.emit('handShake',(worldData)=>{
-        let playerDataCollection=worldData.playerDataCollection;
-        for(var socketID in playerDataCollection){
-            if(playerDataCollection.hasOwnProperty(socketID)){
-                loadNewPlayer(playerDataCollection[socketID],socketID);
-            }
-        }
-
         console.log('length: '+worldData.staticPlatforms.length);
         console.log('all platforms: '+ JSON.stringify(worldData.staticPlatforms));
-        for(var i=0;i<worldData.staticPlatforms.length;i++){
+        for(let i=0;i<worldData.staticPlatforms.length;i++){
             let platform=worldData.staticPlatforms[i];
             loadNewPlatform(platform);
         }
 
-        const update_interval = setInterval(()=>update(RENDER_INTERVAL), RENDER_INTERVAL);
+        const update_interval = setInterval(()=>renderUpdate(RENDER_INTERVAL), RENDER_INTERVAL);
     });
 }
 
 function fetchPlayerActions(){
     let pressedKeys=[];
-    for(var key in keys) {
-        if(keys[key]===true){
+    for(let key in keyPresses) {
+        if(keyPresses[key]===true){
             pressedKeys.push(key.toString());
         }
     }
@@ -114,37 +104,42 @@ function fetchPlayerActions(){
     return pressedKeys;
 }
 
-function render(updatedWorld){
-    console.log('tried to render')
-    for (let socketID in updatedWorld.players){
-        if (updatedWorld.players.hasOwnProperty(socketID)) {
-            let clientSprite=clientSprites[socketID];
-            clientSprite.x=updatedWorld.players[socketID].x;
-            clientSprite.y=updatedWorld.players[socketID].y;
-        }
+function renderUpdate(dt) {
+    let data = dataQueue.interpData;
+    if (dataQueue.canInterp) {
+        refreshSprites(data.interpA.dynamicEntities);
+        interpData(data.interpA, data.interpB, data.interpRatio);
+        dataQueue.timeStep(dt);
     }
 }
 
-function update(dt){
-    function interpData(interpA,interpB,interpRatio){
-        const players=interpA.players;
-        const updatedPlayers=interpB.players;
-        for (let socketID in players){
-            if (players.hasOwnProperty(socketID)&&updatedPlayers.hasOwnProperty(socketID)) {
-                let clientSprite=clientSprites[socketID];
-                let oldPlayer=players[socketID];
-                let newPlayer=updatedPlayers[socketID];
-                clientSprite.x=(newPlayer.x-oldPlayer.x)*interpRatio+oldPlayer.x;
-                clientSprite.y=(newPlayer.y-oldPlayer.y)*interpRatio+oldPlayer.y;
-            }
+function interpData(interpA, interpB, interpRatio) {
+    const dynamicEntities = interpA.dynamicEntities;
+    const updatedEntities = interpB.dynamicEntities;
+
+    Object.keys(dynamicEntities).forEach(function(key,index){
+        if (updatedEntities.hasOwnProperty(key)&&sprites.hasOwnProperty(key)) {
+            let clientSprite = sprites[key];
+            let oldEntity = dynamicEntities[key];
+            let newEntity = updatedEntities[key];
+            clientSprite.x = (newEntity.x - oldEntity.x) * interpRatio + oldEntity.x;
+            clientSprite.y = (newEntity.y - oldEntity.y) * interpRatio + oldEntity.y;
+            console.log('x: ' + clientSprite.x + "y: " + clientSprite.y);
         }
-    }
-    if(dataQueue.canInterp){
+    });
+}
 
-        let data=dataQueue.interpData;
-        interpData(data.interpA,data.interpB,data.interpRatio);
-        dataQueue.timeStep(dt);
+function refreshSprites(dynamicEntities) {
+    Object.keys(sprites).forEach(function (key, index) {
+        if (!dynamicEntities.hasOwnProperty(key)) {
+            sprites[key].visible=false;
+            delete sprites.key;
+        }
+    });
 
-        console.log(data.interpRatio);
-    }
+    Object.keys(dynamicEntities).forEach(function(key,index){
+        if (!sprites.hasOwnProperty(key)) {
+            loadDynamicEntity(dynamicEntities[key]);
+        }
+    });
 }

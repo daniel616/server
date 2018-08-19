@@ -26,5 +26,9 @@ let dataQueue={
 
     get interpData(){
         return {interpA:this.queue[0],interpB:this.queue[1],interpRatio:this.interpTime/INTERP_INTERVAL};
+    },
+
+    get length(){
+        return this.queue.length;
     }
 }

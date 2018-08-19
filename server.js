@@ -2,18 +2,17 @@ const express=require('express');
 const socketIO=require('socket.io');
 const http=require('http');
 const Bump=require('./bastBump');
-//const messages=require('./utils/message');
 const worldEntities=require('./worldEntities');
 
+let app=express();
+let server = http.createServer(app);
+let io=socketIO(server);
 
-var app=express();
-var server = http.createServer(app);
-var io=socketIO(server);
+let playerSockets={};
+let playerSpriteData={};
 
-var playerSockets={};//object indexed by id
-var playerDataCollection={};//playerData indexed by corresponding socketId
-var staticPlatforms=[];
-var dynamicObjects=[];
+let staticPlatforms=[];
+let dynamicEntities={};
 
 const HEIGHT=600;
 const WIDTH=900;
@@ -27,12 +26,13 @@ const UPDATE_INTERVAL_MS=100;
 io.on('connection',(socket)=>{
     socket.on('handShake',(callback)=>{
         console.log('New user connected: '+socket.id);
-        playerSockets[socket.id]=socket;
-        let playerData=new worldEntities.Player('wer');
+        let playerData=new worldEntities.Player(0,0,50,70);
         respawnPlayer(playerData);
-        playerDataCollection[socket.id]= playerData;
-        socket.broadcast.emit('newPlayer',{player:playerData,socketID:socket.id});
-        callback({playerDataCollection,staticPlatforms});
+        playerSockets[socket.id]=socket;
+        playerSpriteData[socket.id]=playerData;
+        dynamicEntities[playerData.id]= playerData;
+        console.log(JSON.stringify(playerData));
+        callback({staticPlatforms});
     });
 
     socket.on('createMessage',(message)=>{
@@ -41,9 +41,10 @@ io.on('connection',(socket)=>{
     });
 
     socket.on('disconnect',()=>{
+        let ID=playerSpriteData[socket.id].id;
+        delete dynamicEntities[ID];
         delete playerSockets[socket.id];
-        delete playerDataCollection[socket.id];
-        socket.broadcast.emit('otherDisconnect', socket.id);
+        delete playerSpriteData[socket.id];
     });
 
     socket.on('Ping',(callback)=>{
@@ -52,7 +53,6 @@ io.on('connection',(socket)=>{
 
     io.sockets.emit('newMessage',
         new generateMessage('ADMIN','A NEW USER HAS JOINED US'));
-
 });
 
 function generateMessage(from,text){
@@ -63,33 +63,38 @@ function generateMessage(from,text){
 function respawnPlayer(playerData){
     playerData.health=HEALTH_MAX;
 
-    let xPos=spawnLeft? 0:WIDTH-playerData.width;
+    let xPos=spawnLeft ? 0:WIDTH-playerData.width;
     playerData.x=xPos;
     playerData.y=10;
     spawnLeft=!spawnLeft;
 }
 
 function initializeWorld(){
+
+
     staticPlatforms.push(new worldEntities.Platform(0,100,60,500));
     staticPlatforms.push(new worldEntities.Platform(WIDTH-60,100,60,800));
-
     staticPlatforms.push(new worldEntities.Platform(200,400,500,30));
 }
 
 function update(dt){
-    //console.log('updated');
+    //let needsRefresh=worldEntities.refreshNotifier.needsRefresh();
     for(let socketID in playerSockets){
-        if(playerSockets.hasOwnProperty(socketID)&&playerDataCollection.hasOwnProperty(socketID)){
+        if(playerSockets.hasOwnProperty(socketID)&&playerSpriteData.hasOwnProperty(socketID)){
             const individualSocket=playerSockets[socketID];
+            const individualData=playerSpriteData[socketID];
+
+            //playerDataCollection[socketID]
 
             individualSocket.emit('fetchCommands', function(playerAction){
-                handleMoveCommands(playerDataCollection[socketID],playerAction);
+                handleMoveCommands(individualData,playerAction);
                 for(let i=0;i<staticPlatforms.length;i++){
-                    Bump.rectangleCollision(playerDataCollection[socketID],staticPlatforms[i]);
+                    Bump.rectangleCollision(individualData,staticPlatforms[i]);
                 }
             });
+            //needsRefresh removed
 
-            individualSocket.emit('worldInfo',{players:playerDataCollection,dynamicObjects});
+            individualSocket.emit('worldInfo',{dynamicEntities});
         }
     }
 }
@@ -108,7 +113,11 @@ function handleMoveCommands(player, commands) {
     if(commands.indexOf('65')!==-1){
         player.x-=speed;
     }
-    if(commands.indexOf('')!==-1){
+    if(commands.indexOf('75')!==-1&&player.cooldown<=0){
+        let attack=new worldEntities.generatedProjectile(player,20,20,10000);
+        dynamicEntities[attack.id]=attack;
+        //worldEntities.refreshNotifier.value.push([attack.id]);
+        player.cooldown=player.COOLDOWN_INTERVAL;
     }
 }
 

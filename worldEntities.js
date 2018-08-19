@@ -1,29 +1,42 @@
-function Player(playerName) {
-    this.playerName = playerName;
-    this.x = 0;
-    this.y = 0;
-    this.vy= 0;
-    this.vx=0;
-    this.health=10;
-    this.width=50;
-    this.height=70;
-    this.timeSinceAttack=0;
+const idGenerator={
+    currentID:0,
+    generateID:function(){
+        this.currentID++;
+        return this.currentID;
+    }
+}
+
+/*
+const refreshNotifier={
+    value:[],
+    needsRefresh:function(){
+        let oldValue=this.value;
+        this.value=[];
+        return oldValue;
+    }
+}*/
+
+function SpriteData(x,y,width,height,renderKey){
+    return {id:idGenerator.generateID(),x,y,width,height,renderKey};
 }
 
 function Platform(x,y,width,height){
-    this.x=x;
-    this.y=y;
-    this.width=width;
-    this.height=height;
+    return SpriteData(x,y,width,height,'platform');
 }
 
-function attack(x,y,width,height,sourceID,existTime){
-    this.x=x;
-    this.y=y;
-    this.width=width;
-    this.height=height;
-    this.sourceID=sourceID;
-    this.existTime=existTime;
+function Player(x,y,width,height){
+    let player=SpriteData(x,y,width,height,'player');
+    player.health=10;
+    player.cooldown=0;
+    player.COOLDOWN_INTERVAL=1000;
+    return player;
 }
 
-module.exports={Player,Platform,attack};
+function generatedProjectile(player, width, height, longevity){
+    let attack=SpriteData(player.x,player.y,width,height,'projectile');
+    attack.longevity=longevity;
+    attack.attackerID=player.id;
+    return attack;
+}
+
+module.exports={Player,Platform, generatedProjectile};
