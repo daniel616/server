@@ -4,20 +4,12 @@ const idGenerator={
         this.currentID++;
         return this.currentID;
     }
-}
-
-/*
-const refreshNotifier={
-    value:[],
-    needsRefresh:function(){
-        let oldValue=this.value;
-        this.value=[];
-        return oldValue;
-    }
-}*/
+};
 
 function SpriteData(x,y,width,height,renderKey){
-    return {id:idGenerator.generateID(),x,y,width,height,renderKey};
+    let data={id:idGenerator.generateID(),x,y,width,height,renderKey};
+    data.act=undefined;
+    return data;
 }
 
 function Platform(x,y,width,height){
@@ -29,13 +21,16 @@ function Player(x,y,width,height){
     player.health=10;
     player.cooldown=0;
     player.COOLDOWN_INTERVAL=1000;
+    player.vx=0;
+    player.vy=0;
     return player;
 }
 
-function generatedProjectile(player, width, height, longevity){
+function generatedProjectile(player, width, height, damage,longevity){
     let attack=SpriteData(player.x,player.y,width,height,'projectile');
     attack.longevity=longevity;
     attack.attackerID=player.id;
+    attack.damage=damage;
     return attack;
 }
 

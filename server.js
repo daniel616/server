@@ -28,9 +28,12 @@ io.on('connection',(socket)=>{
         console.log('New user connected: '+socket.id);
         let playerData=new worldEntities.Player(0,0,50,70);
         respawnPlayer(playerData);
+        playerData.act=()=>playerAct(playerData);
+
         playerSockets[socket.id]=socket;
         playerSpriteData[socket.id]=playerData;
         dynamicEntities[playerData.id]= playerData;
+
         console.log(JSON.stringify(playerData));
         callback({staticPlatforms});
     });
@@ -70,54 +73,84 @@ function respawnPlayer(playerData){
 }
 
 function initializeWorld(){
-
-
     staticPlatforms.push(new worldEntities.Platform(0,100,60,500));
     staticPlatforms.push(new worldEntities.Platform(WIDTH-60,100,60,800));
     staticPlatforms.push(new worldEntities.Platform(200,400,500,30));
 }
 
 function update(dt){
-    //let needsRefresh=worldEntities.refreshNotifier.needsRefresh();
-    for(let socketID in playerSockets){
-        if(playerSockets.hasOwnProperty(socketID)&&playerSpriteData.hasOwnProperty(socketID)){
-            const individualSocket=playerSockets[socketID];
-            const individualData=playerSpriteData[socketID];
+    Object.keys(playerSockets).forEach(function(key,index){
+        let socket=playerSockets[key];
+        let player=playerSpriteData[key];
 
-            //playerDataCollection[socketID]
+        socket.emit('worldInfo',{dynamicEntities});
+        socket.emit('fetchCommands', function(playerAction){
+            handleMoveCommands(player,playerAction);
+        });
+    });
 
-            individualSocket.emit('fetchCommands', function(playerAction){
-                handleMoveCommands(individualData,playerAction);
-                for(let i=0;i<staticPlatforms.length;i++){
-                    Bump.rectangleCollision(individualData,staticPlatforms[i]);
-                }
-            });
-            //needsRefresh removed
-
-            individualSocket.emit('worldInfo',{dynamicEntities});
+    Object.keys(dynamicEntities).forEach(function(key,index){
+        if(dynamicEntities[key].act!==undefined){
+            dynamicEntities[key].act();
         }
-    }
+    });
 }
 
 function handleMoveCommands(player, commands) {
     var speed =25;
     if(commands.indexOf('87')!==-1){
-        player.y-=speed;
+        player.vy=-speed;
     }
     if(commands.indexOf('83')!==-1){
-        player.y+=speed;
+        player.vy=speed;
     }
     if(commands.indexOf('68')!==-1){
-        player.x+=speed;
+        player.vx=speed;
     }
     if(commands.indexOf('65')!==-1){
-        player.x-=speed;
+        player.vx=-speed;
     }
     if(commands.indexOf('75')!==-1&&player.cooldown<=0){
-        let attack=new worldEntities.generatedProjectile(player,20,20,10000);
+        let attack=new worldEntities.generatedProjectile(player,20,20,10,10000);
+        attack.vx=5;
+        attack.vy=5;
         dynamicEntities[attack.id]=attack;
-        //worldEntities.refreshNotifier.value.push([attack.id]);
-        player.cooldown=player.COOLDOWN_INTERVAL;
+
+        attack.act= ()=>projectileAct(attack);
+
+        setTimeout(function(){
+            if(dynamicEntities[attack.id]){
+                delete dynamicEntities[attack.id];
+            }
+        },attack.longevity);
+        //player.cooldown=player.COOLDOWN_INTERVAL;
+    }
+}
+
+function projectileAct(projectileData){
+    projectileData.x+=projectileData.vx;
+    projectileData.y+=projectileData.vy;
+    Object.keys(playerSpriteData).forEach(function(key,index){
+        if(Bump.hitTestRectangle(projectileData,playerSpriteData[key])){
+            delete dynamicEntities[projectileData.id];
+            playerSpriteData[key].health-=projectileData.damage;
+        }
+    });
+}
+
+function playerAct(playerData){
+    playerData.x+=playerData.vx;
+    playerData.y+=playerData.vy;
+
+    playerData.vy+=4;
+    playerData.vy*=0.9;
+    playerData.vx*=0.9;
+    for(let i=0;i<staticPlatforms.length;i++){
+        Bump.rectangleCollision(playerData,staticPlatforms[i]);
+    }
+
+    if(playerData.health<=0){
+        respawnPlayer(playerData);
     }
 }
 

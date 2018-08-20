@@ -114,7 +114,7 @@
     should bounce off the second sprite.
     */
 
-    //Assumes r1, r2 have x,y, width, and height
+    //Assumes r1, r2 have x,y, width, and height, and r1 has vx and vy properties.
     function rectangleCollision(
         r1, r2, bounce = false, global = true
     ) {
@@ -160,10 +160,12 @@
                         collision = "top";
                         //Move the rectangle out of the collision
                         r1.y = r1.y + overlapY;
+                        r1.vy=0;
                     } else {
                         collision = "bottom";
                         //Move the rectangle out of the collision
                         r1.y = r1.y - overlapY;
+                        r1.vy=0;
                     }
                 } else {
 
@@ -171,10 +173,12 @@
                         collision = "left";
                         //Move the rectangle out of the collision
                         r1.x = r1.x + overlapX;
+                        r1.vx=0;
                     } else {
                         collision = "right";
                         //Move the rectangle out of the collision
                         r1.x = r1.x - overlapX;
+                        r1.vx=0;
                     }
 
                 }
@@ -191,4 +195,51 @@
         return collision;
     }
 
-module.exports={rectangleCollision};
+    function hitTestRectangle(r1, r2, global = false) {
+
+        //Add collision properties
+        if (!r1._bumpPropertiesAdded) addCollisionProperties(r1);
+        if (!r2._bumpPropertiesAdded) addCollisionProperties(r2);
+
+        let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
+
+        //A variable to determine whether there's a collision
+        hit = false;
+
+        //Calculate the distance vector
+        if (global) {
+            vx = (r1.gx + Math.abs(r1.halfWidth) - r1.xAnchorOffset) - (r2.gx + Math.abs(r2.halfWidth) - r2.xAnchorOffset);
+            vy = (r1.gy + Math.abs(r1.halfHeight) - r1.yAnchorOffset) - (r2.gy + Math.abs(r2.halfHeight) - r2.yAnchorOffset);
+        } else {
+            vx = (r1.x + Math.abs(r1.halfWidth) - r1.xAnchorOffset) - (r2.x + Math.abs(r2.halfWidth) - r2.xAnchorOffset);
+            vy = (r1.y + Math.abs(r1.halfHeight) - r1.yAnchorOffset) - (r2.y + Math.abs(r2.halfHeight) - r2.yAnchorOffset);
+        }
+
+        //Figure out the combined half-widths and half-heights
+        combinedHalfWidths = Math.abs(r1.halfWidth) + Math.abs(r2.halfWidth);
+        combinedHalfHeights = Math.abs(r1.halfHeight) + Math.abs(r2.halfHeight);
+
+        //Check for a collision on the x axis
+        if (Math.abs(vx) < combinedHalfWidths) {
+
+            //A collision might be occuring. Check for a collision on the y axis
+            if (Math.abs(vy) < combinedHalfHeights) {
+
+                //There's definitely a collision happening
+                hit = true;
+            } else {
+
+                //There's no collision on the y axis
+                hit = false;
+            }
+        } else {
+
+            //There's no collision on the x axis
+            hit = false;
+        }
+
+        //`hit` will be either `true` or `false`
+        return hit;
+    }
+
+module.exports={rectangleCollision,hitTestRectangle};

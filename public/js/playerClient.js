@@ -1,6 +1,5 @@
 'use strict';
 
-
 let keyPresses=[];
 
 let sprites={};
@@ -71,7 +70,6 @@ function setup(){
         function(e){
             keyPresses[e.keyCode]=false;
         });
-
 
     playerSocket.on('fetchCommands',(playerActionCallback)=>{
         playerActionCallback(fetchPlayerActions());
