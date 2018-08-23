@@ -17,6 +17,14 @@ let dataQueue={
         if(this.interpTime>=INTERP_INTERVAL){
             this.interpTime=0;
             this.queue.shift();
+
+        }
+    },
+
+    cutForward:function(){
+        while(this.queue.length>2){
+            this.interpTime=0;
+            this.queue.shift();
         }
     },
 

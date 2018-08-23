@@ -9,7 +9,6 @@ const mappings={
     },
 
     projectile:{
-        JSONfile:"run.json",
-        spriteImage:"baron_run0002.png"
+        spriteImage:"platform.png"
     },
 };

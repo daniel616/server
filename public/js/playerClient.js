@@ -30,6 +30,37 @@ const resources=Loader.resources;
 Loader.add(["assets/bomb.png","assets/platform.png","assets/run.json","assets/projectile.json"])
     .load(setup);
 
+function setup(){
+    window.addEventListener('keydown',
+        function(e){
+            keyPresses[e.keyCode]=true;
+        });
+
+    window.addEventListener('keyup',
+        function(e){
+            keyPresses[e.keyCode]=false;
+        });
+
+    playerSocket.on('fetchCommands',(playerActionCallback)=>{
+        playerActionCallback(fetchPlayerActions());
+    });
+
+
+    playerSocket.emit('handShake',(worldData)=>{
+        console.log('length: '+worldData.staticPlatforms.length);
+        console.log('all platforms: '+ JSON.stringify(worldData.staticPlatforms));
+        for(let i=0;i<worldData.staticPlatforms.length;i++){
+            let platform=worldData.staticPlatforms[i];
+            loadNewPlatform(platform);
+        }
+
+        playerSocket.on('worldInfo',(worldData)=>{
+            dataQueue.enqueueData(worldData);
+        });
+
+        const update_interval = setInterval(()=>renderUpdate(RENDER_INTERVAL), RENDER_INTERVAL);
+    });
+}
 
 function loadSprite(objectData){
     let newSprite;
@@ -60,37 +91,6 @@ function loadNewPlatform(platformData){
     app.stage.addChild(newSprite);
 }
 
-function setup(){
-    window.addEventListener('keydown',
-        function(e){
-            keyPresses[e.keyCode]=true;
-        });
-
-    window.addEventListener('keyup',
-        function(e){
-            keyPresses[e.keyCode]=false;
-        });
-
-    playerSocket.on('fetchCommands',(playerActionCallback)=>{
-        playerActionCallback(fetchPlayerActions());
-    });
-
-    playerSocket.on('worldInfo',(worldData)=>{
-        dataQueue.enqueueData(worldData);
-    });
-
-    playerSocket.emit('handShake',(worldData)=>{
-        console.log('length: '+worldData.staticPlatforms.length);
-        console.log('all platforms: '+ JSON.stringify(worldData.staticPlatforms));
-        for(let i=0;i<worldData.staticPlatforms.length;i++){
-            let platform=worldData.staticPlatforms[i];
-            loadNewPlatform(platform);
-        }
-
-        const update_interval = setInterval(()=>renderUpdate(RENDER_INTERVAL), RENDER_INTERVAL);
-    });
-}
-
 function fetchPlayerActions(){
     let pressedKeys=[];
     for(let key in keyPresses) {
@@ -104,11 +104,17 @@ function fetchPlayerActions(){
 
 function renderUpdate(dt) {
     let data = dataQueue.interpData;
+    //console.log('length: '+dataQueue.length);
+    if(dataQueue.length>2){
+        dataQueue.cutForward();
+        console.log('Had to cut dataQueue off');
+    }
     if (dataQueue.canInterp) {
         refreshSprites(data.interpA.dynamicEntities);
         interpData(data.interpA, data.interpB, data.interpRatio);
         dataQueue.timeStep(dt);
     }
+    //console.log('dataqueue length:'+dataQueue.length);
 }
 
 function interpData(interpA, interpB, interpRatio) {
@@ -122,7 +128,7 @@ function interpData(interpA, interpB, interpRatio) {
             let newEntity = updatedEntities[key];
             clientSprite.x = (newEntity.x - oldEntity.x) * interpRatio + oldEntity.x;
             clientSprite.y = (newEntity.y - oldEntity.y) * interpRatio + oldEntity.y;
-            console.log('x: ' + clientSprite.x + "y: " + clientSprite.y);
+            //console.log('x: ' + clientSprite.x + "y: " + clientSprite.y);
         }
     });
 }

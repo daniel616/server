@@ -18,9 +18,16 @@ function Platform(x,y,width,height){
 
 function Player(x,y,width,height){
     let player=SpriteData(x,y,width,height,'player');
+    player.direction="right";
+    player.actionStatus="neutral";
     player.health=10;
-    player.cooldown=0;
-    player.COOLDOWN_INTERVAL=1000;
+    player.shootReady=true;
+    player.slashReady=true;
+    player.dashReady=true;
+    player.slashCoolDown=750;
+    player.shootCoolDown=1000;
+    player.dashCoolDown=1000;
+    player.dashSpeed=20;
     player.vx=0;
     player.vy=0;
     return player;

@@ -14,6 +14,8 @@ let playerSpriteData={};
 let staticPlatforms=[];
 let dynamicEntities={};
 
+const FRICTION=0.7;
+const GRAVITY=4;
 const HEIGHT=600;
 const WIDTH=900;
 const HEALTH_MAX=10;
@@ -44,10 +46,14 @@ io.on('connection',(socket)=>{
     });
 
     socket.on('disconnect',()=>{
-        let ID=playerSpriteData[socket.id].id;
-        delete dynamicEntities[ID];
-        delete playerSockets[socket.id];
-        delete playerSpriteData[socket.id];
+        if(playerSockets[socket.id]){
+            let ID=playerSpriteData[socket.id].id;
+            delete dynamicEntities[ID];
+            delete playerSockets[socket.id];
+            delete playerSpriteData[socket.id];
+        }else{
+            console.log('Disconnected a client that connected before server restart... I think.');
+        }
     });
 
     socket.on('Ping',(callback)=>{
@@ -86,6 +92,9 @@ function update(dt){
         socket.emit('worldInfo',{dynamicEntities});
         socket.emit('fetchCommands', function(playerAction){
             handleMoveCommands(player,playerAction);
+            for(let i=0;i<staticPlatforms.length;i++){
+                Bump.rectangleCollision(player,staticPlatforms[i]);
+            }
         });
     });
 
@@ -99,21 +108,31 @@ function update(dt){
 function handleMoveCommands(player, commands) {
     var speed =25;
     if(commands.indexOf('87')!==-1){
-        player.vy=-speed;
+        //fall
+        player.vy=-GRAVITY*10;
     }
     if(commands.indexOf('83')!==-1){
-        player.vy=speed;
+        //jump
+        player.y+=speed;
     }
     if(commands.indexOf('68')!==-1){
-        player.vx=speed;
+        player.x+=speed;
+        player.vx=Math.max(player.vx,0);
+        player.direction="right";
     }
     if(commands.indexOf('65')!==-1){
-        player.vx=-speed;
+        player.x-=speed;
+        player.vx=Math.min(player.vx,0);
+        player.direction="left";
     }
-    if(commands.indexOf('75')!==-1&&player.cooldown<=0){
+    if(commands.indexOf('191')!==-1&&player.shootReady){
         let attack=new worldEntities.generatedProjectile(player,20,20,10,10000);
-        attack.vx=5;
-        attack.vy=5;
+        if(player.direction==="right"){
+            attack.vx=5;
+        }else if(player.direction==="left"){
+            attack.vx=-5;
+        }
+        attack.vy=0;
         dynamicEntities[attack.id]=attack;
 
         attack.act= ()=>projectileAct(attack);
@@ -123,7 +142,49 @@ function handleMoveCommands(player, commands) {
                 delete dynamicEntities[attack.id];
             }
         },attack.longevity);
+
+        player.shootReady=false;
+        setTimeout(()=>player.shootReady=true,player.shootCoolDown);
         //player.cooldown=player.COOLDOWN_INTERVAL;
+    }
+    if(commands.indexOf('188')!==-1&&player.dashReady){
+        let velocitySign;
+        switch(String(player.direction)){
+            case "left":
+                velocitySign=-1;
+                break;
+            case "right":
+                velocitySign=1;
+                break;
+        }
+        player.vx=velocitySign*player.dashSpeed;
+
+        player.dashReady=false;
+        setTimeout(()=>player.dashReady=true,player.dashCoolDown);
+
+    }
+    if(commands.indexOf('190')!==-1&&player.slashReady){
+        let xDisp;
+        switch(String(player.direction)){
+            case "left":
+                xDisp=-10;
+                break;
+            case "right":
+                xDisp=10;
+                break;
+        }
+        let point={x:player.x+xDisp,y:player.y};
+        console.log('SLASH!'+JSON.stringify(point));
+        Object.keys(playerSpriteData).forEach(function(key,index){
+            if(Bump.hitTestPoint(point,playerSpriteData[key])){
+                playerSpriteData[key].health-=5;
+                console.log('hit!');
+            }
+        });
+
+        player.slashReady=false;
+        setTimeout(()=>player.dashReady=true,player.dashCoolDown);
+
     }
 }
 
@@ -131,9 +192,15 @@ function projectileAct(projectileData){
     projectileData.x+=projectileData.vx;
     projectileData.y+=projectileData.vy;
     Object.keys(playerSpriteData).forEach(function(key,index){
-        if(Bump.hitTestRectangle(projectileData,playerSpriteData[key])){
+        if(Bump.hitTestRectangle(projectileData,playerSpriteData[key])
+            &&playerSpriteData[key].id!==projectileData.attackerID){
             delete dynamicEntities[projectileData.id];
             playerSpriteData[key].health-=projectileData.damage;
+        }
+    });
+    Object.keys(staticPlatforms).forEach(function(key,index){
+        if(Bump.hitTestRectangle(projectileData,staticPlatforms[key])){
+            delete dynamicEntities[projectileData.id];
         }
     });
 }
@@ -141,12 +208,21 @@ function projectileAct(projectileData){
 function playerAct(playerData){
     playerData.x+=playerData.vx;
     playerData.y+=playerData.vy;
+    console.log(JSON.stringify(playerData));
 
-    playerData.vy+=4;
-    playerData.vy*=0.9;
-    playerData.vx*=0.9;
+    playerData.vy+=GRAVITY;
     for(let i=0;i<staticPlatforms.length;i++){
-        Bump.rectangleCollision(playerData,staticPlatforms[i]);
+        if(Bump.rectangleCollision(playerData,staticPlatforms[i])){
+            playerData.vy*=FRICTION;
+            playerData.vx*=FRICTION;
+        }
+    }
+
+    if(Math.abs(playerData.vx)<1){
+        playerData.vx=0;
+    }
+    if(Math.abs(playerData.vy)<1){
+        playerData.vy=0;
     }
 
     if(playerData.health<=0){
