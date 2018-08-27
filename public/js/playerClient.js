@@ -30,7 +30,7 @@ const resources=Loader.resources;
 let su = new SpriteUtilities(PIXI);
 
 
-Loader.add(["assets/platform.png","assets/run.json","assets/projectile.json","assets/baron/attackA.json"])
+Loader.add(["assets/platform.png","assets/run.json","assets/baron/attackA.json"])
     .load(setup);
 
 function setup(){

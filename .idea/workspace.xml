@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f2fc4f9-78b3-4ece-ad25-c00ff10953a8" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/assets/bah.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/assets/bah.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/assets/bomb.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/assets/dude.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/assets/projectile.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/index2.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/phaserTest.js" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/playground/sample.js" afterPath="$PROJECT_DIR$/playground/animation.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/js/smoothie.js" afterPath="$PROJECT_DIR$/public/js/utils/smoothie.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/playground/index.html" afterPath="$PROJECT_DIR$/playground/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/playerClient.js" afterPath="$PROJECT_DIR$/public/js/playerClient.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/utils/renderMappings.js" afterPath="$PROJECT_DIR$/public/js/utils/renderMappings.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldEntities.js" afterPath="$PROJECT_DIR$/worldEntities.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -37,8 +23,18 @@
       <file leaf-file-name="playerClient.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/playerClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="474">
-              <caret line="65" column="1" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="65" selection-end-column="1" />
+            <state relative-caret-position="401">
+              <caret line="32" column="51" lean-forward="false" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="worldEntities.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/worldEntities.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="25" lean-forward="true" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -51,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="spriteUtilities.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/utils/spriteUtilities.js">
+      <file leaf-file-name="renderMappings.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/js/utils/renderMappings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="1181" column="18" lean-forward="false" selection-start-line="1181" selection-start-column="18" selection-end-line="1181" selection-end-column="18" />
+            <state relative-caret-position="165">
+              <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -64,7 +60,7 @@
       <file leaf-file-name="messages.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/messages.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-53">
+            <state relative-caret-position="210">
               <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
               <folding />
             </state>
@@ -94,28 +90,8 @@
       <file leaf-file-name="demo.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/playground/demo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-510">
-              <caret line="33" column="44" lean-forward="true" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/playground/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="animation.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/playground/animation.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+            <state relative-caret-position="1155">
+              <caret line="79" column="1" lean-forward="true" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -196,7 +172,6 @@
         <option value="$PROJECT_DIR$/public/js/playerClient2.js" />
         <option value="$PROJECT_DIR$/public/js/phaserTest.js" />
         <option value="$PROJECT_DIR$/public/js/pixiUtils.js" />
-        <option value="$PROJECT_DIR$/public/js/messages.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/public/writings.rtf" />
         <option value="$PROJECT_DIR$/public/logo.html" />
@@ -206,12 +181,13 @@
         <option value="$PROJECT_DIR$/bastBump.js" />
         <option value="$PROJECT_DIR$/public/js/utils/dataQueue.js" />
         <option value="$PROJECT_DIR$/worldEntities.js" />
-        <option value="$PROJECT_DIR$/public/js/utils/renderMappings.js" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
-        <option value="$PROJECT_DIR$/public/js/playerClient.js" />
         <option value="$PROJECT_DIR$/playground/index.html" />
         <option value="$PROJECT_DIR$/playground/animation.js" />
+        <option value="$PROJECT_DIR$/public/js/messages.js" />
+        <option value="$PROJECT_DIR$/public/js/playerClient.js" />
+        <option value="$PROJECT_DIR$/public/js/utils/renderMappings.js" />
       </list>
     </option>
   </component>
@@ -234,7 +210,7 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="482" />
+    <option name="x" value="219" />
     <option name="y" value="23" />
     <option name="width" value="1108" />
     <option name="height" value="805" />
@@ -273,6 +249,25 @@
               <item name="sockets" type="b2602c69:ProjectViewProjectNode" />
               <item name="sockets" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sockets" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sockets" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sockets" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sockets" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sockets" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sockets" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sockets" type="b2602c69:ProjectViewProjectNode" />
@@ -370,15 +365,15 @@
       <workItem from="1534664136034" duration="11327000" />
       <workItem from="1534862033675" duration="3022000" />
       <workItem from="1535008845488" duration="2089000" />
-      <workItem from="1535150424398" duration="4517000" />
+      <workItem from="1535150424398" duration="4951000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="213842000" />
+    <option name="totallyTimeSpent" value="214276000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="482" y="23" width="1108" height="805" extended-state="0" />
+    <frame x="219" y="23" width="1108" height="805" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26263538" sideWeight="0.49525103" order="0" side_tool="false" content_ui="combo" />
@@ -626,22 +621,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/utils/renderMappings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/worldEntities.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="25" lean-forward="true" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/phaserTest.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2235">
@@ -666,14 +645,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/messages.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-53">
-          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/baron/attackA.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -683,14 +654,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="1181" column="18" lean-forward="false" selection-start-line="1181" selection-start-column="18" selection-end-line="1181" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/playground/demo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-510">
-          <caret line="33" column="44" lean-forward="true" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -711,10 +674,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/playerClient.js">
+    <entry file="file://$PROJECT_DIR$/public/js/messages.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="65" column="1" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="65" selection-end-column="1" />
+        <state relative-caret-position="210">
+          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -727,6 +690,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/playground/animation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="32" lean-forward="false" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/playground/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -735,10 +706,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/playground/animation.js">
+    <entry file="file://$PROJECT_DIR$/playground/demo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+        <state relative-caret-position="1155">
+          <caret line="79" column="1" lean-forward="true" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/playerClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="32" column="51" lean-forward="false" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldEntities.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="25" lean-forward="true" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/utils/renderMappings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
           <folding />
         </state>
       </provider>
