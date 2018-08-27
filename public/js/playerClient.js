@@ -27,7 +27,10 @@ const Loader=PIXI.loader;
 const Sprite=PIXI.Sprite;
 const resources=Loader.resources;
 
-Loader.add(["assets/bomb.png","assets/platform.png","assets/run.json","assets/projectile.json"])
+let su = new SpriteUtilities(PIXI);
+
+
+Loader.add(["assets/platform.png","assets/run.json","assets/projectile.json","assets/baron/attackA.json"])
     .load(setup);
 
 function setup(){
@@ -62,7 +65,7 @@ function setup(){
     });
 }
 
-function loadSprite(objectData){
+function generateSprite(objectData){
     let newSprite;
     let renderFiles=mappings[objectData.renderKey];
     let JSONfile=renderFiles.JSONfile;
@@ -81,13 +84,13 @@ function loadSprite(objectData){
 }
 
 function loadDynamicEntity(entityInfo){
-    let newSprite=loadSprite(entityInfo);
+    let newSprite=generateSprite(entityInfo);
     sprites[entityInfo.id]=newSprite;
     app.stage.addChild(newSprite);
 }
 
 function loadNewPlatform(platformData){
-    let newSprite=loadSprite(platformData);
+    let newSprite=generateSprite(platformData);
     app.stage.addChild(newSprite);
 }
 

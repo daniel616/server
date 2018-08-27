@@ -19,7 +19,7 @@ function Platform(x,y,width,height){
 function Player(x,y,width,height){
     let player=SpriteData(x,y,width,height,'player');
     player.direction="right";
-    player.actionStatus="neutral";
+    player.renderStatus="neutral";
     player.health=10;
     player.shootReady=true;
     player.slashReady=true;
@@ -38,6 +38,7 @@ function generatedProjectile(player, width, height, damage,longevity){
     attack.longevity=longevity;
     attack.attackerID=player.id;
     attack.damage=damage;
+    attack.renderStatus="neutral";
     return attack;
 }
 

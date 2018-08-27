@@ -9,6 +9,6 @@ const mappings={
     },
 
     projectile:{
-        spriteImage:"platform.png"
+        spriteImage:"projectile-0.png"
     },
 };

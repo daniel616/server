@@ -144,6 +144,7 @@ function handleMoveCommands(player, commands) {
         },attack.longevity);
 
         player.shootReady=false;
+        player.renderStatus="shoot";
         setTimeout(()=>player.shootReady=true,player.shootCoolDown);
         //player.cooldown=player.COOLDOWN_INTERVAL;
     }
@@ -182,8 +183,12 @@ function handleMoveCommands(player, commands) {
             }
         });
 
+        player.renderStatus="slash";
         player.slashReady=false;
-        setTimeout(()=>player.dashReady=true,player.dashCoolDown);
+        setTimeout(function (){
+            player.dashReady=true;
+            player.renderStatus="neutral";
+        },player.dashCoolDown);
 
     }
 }
