@@ -16,11 +16,16 @@
     padding-left:0;
 }
 
-#chat{
-    width:25%;
-    border:solid thin;
-    overflow:scroll;
-    padding:10px;
+#chat {
+    width: 25%;
+    border: solid thin;
+    overflow: scroll;
+    padding: 10px;
+}
+
+
+#credit{
+    text-align:center;
 }
 
 
