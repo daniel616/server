@@ -1,6 +1,5 @@
 //This bit has to sync with server interp duration
 const INTERP_INTERVAL=100;
-let INTERP_DELAY;
 
 let dataQueue={
     queue:[],

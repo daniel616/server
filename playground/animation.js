@@ -21,9 +21,40 @@ const resources=Loader.resources;
 let su = new SpriteUtilities(PIXI);
 
 
-Loader.add(["assets/platform.png","assets/run.json","assets/projectile.json","assets/baron/attackA.json"])
+
+
+Loader.add(["assets/platform.png","assets/run.json","assets/baron/attackA.json"])
     .load(setup);
 
-function setup(){
+let left = PIXI.keyboard(37);
 
+function setup(){
+    console.log(undefined===undefined);
+    let id = resources["assets/baron/attackA.json"].textures;
+    let frames=[];
+    for(let i=1;i<38;i++){
+        let string;
+        if(i<10){
+            string="baron_attackA000"+i+".png";
+        }else{
+            string="baron_attackA00"+i+".png";
+        }
+        frames.push(id[string]);
+    }
+    //let frames2=[id["baron"]]
+
+    let pixie= su.sprite(frames,100,100);
+    pixie.states={
+        firstAttack:0,
+        secondAttack:15,
+        slash:[0,10]
+    }
+
+
+    pixie.playAnimation(pixie.states.slash);
+    //pixie.show(pixie.states.firstAttack);
+    //pixie.play();
+    //pixie.animationSpeed=0.25;
+
+    app.stage.addChild(pixie);
 }

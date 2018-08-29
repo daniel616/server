@@ -2,7 +2,7 @@
 
 let keyPresses=[];
 
-let sprites={};
+let clientSprites={};
 
 const RENDER_INTERVAL=10;
 
@@ -68,24 +68,37 @@ function setup(){
 function generateSprite(objectData){
     let newSprite;
     let renderFiles=mappings[objectData.renderKey];
-    let JSONfile=renderFiles.JSONfile;
-    let spriteImage=renderFiles.spriteImage;
-    if(JSONfile){
+    let renderStates=renderFiles.renderStates;
+    if(renderStates){
+        let JSONfile=renderFiles.JSONfile;
         let textures=resources["assets/"+JSONfile].textures;
-        newSprite = new Sprite(textures[spriteImage]);
+        let images=renderFiles.loadSpecifications.map(id=>textures[id]);
+        //console.log("sprite images:"+JSON.stringify(renderFiles.loadSpecifications))
+        newSprite = su.sprite(images);
     }else{
-        newSprite=new Sprite(resources["assets/"+spriteImage].texture);
+        let spriteImage=renderFiles.spriteImage;
+        newSprite=su.sprite(resources["assets/"+spriteImage].texture);
     }
     newSprite.x = objectData.x;
     newSprite.y = objectData.y;
     newSprite.width=objectData.width;
     newSprite.height=objectData.height;
+
+    console.log(JSON.stringify(objectData));
+
+    if(objectData.hasOwnProperty('anchor')){
+        console.log('Found anchor')
+         newSprite.anchor.set(objectData.anchor.x,objectData.anchor.y);
+     }
+
+
     return newSprite;
 }
 
 function loadDynamicEntity(entityInfo){
+    console.log('loaded Dynamic entity: ');
     let newSprite=generateSprite(entityInfo);
-    sprites[entityInfo.id]=newSprite;
+    clientSprites[entityInfo.id]=newSprite;
     app.stage.addChild(newSprite);
 }
 
@@ -107,17 +120,55 @@ function fetchPlayerActions(){
 
 function renderUpdate(dt) {
     let data = dataQueue.interpData;
-    //console.log('length: '+dataQueue.length);
+
     if(dataQueue.length>2){
         dataQueue.cutForward();
         console.log('Had to cut dataQueue off');
     }
     if (dataQueue.canInterp) {
         refreshSprites(data.interpA.dynamicEntities);
+        if(dataQueue.interpTime===0){
+            updateRendering(clientSprites,data.interpA.dynamicEntities);
+        }
         interpData(data.interpA, data.interpB, data.interpRatio);
         dataQueue.timeStep(dt);
     }
-    //console.log('dataqueue length:'+dataQueue.length);
+}
+
+
+//Assumes every dynamicEntitity has corresponding sprite and ice versa
+function updateRendering(sprites, dynamicEntities){
+    Object.keys(dynamicEntities).forEach(function(key,index){
+        let sprite=sprites[key];
+        let serverEntity=dynamicEntities[key];
+
+        if(serverEntity.hasOwnProperty('direction')){
+            if(serverEntity.direction==='left'){
+                sprite.scale.x=Math.abs(sprite.scale.x);
+            }
+            if(serverEntity.direction==='right'){
+                sprite.scale.x=-Math.abs(sprite.scale.x);
+            }
+        }
+
+        console.log('renderStatus: '+serverEntity['renderStatus']);
+        if(serverEntity.hasOwnProperty('renderStatus')&&serverEntity['renderStatus']!=="neutral"){
+            let renderStates=mappings[serverEntity['renderKey']]['renderStates'];
+            let renderDirections=renderStates[serverEntity['renderStatus']];
+
+            console.log('renderDirections: '+JSON.stringify(renderDirections));
+
+            if(renderDirections.hasOwnProperty('animationFrameNumbers')){
+                console.log('tried to render animation');
+                //sprite.playAnimation([1,2,3,4,5,6,7,8,9,10]);
+                sprite.loop=renderDirections.loop;
+                sprite.playAnimation(renderDirections.animationFrameNumbers);
+            }else {
+                sprite.show(renderDirections);
+            }
+
+        }
+    })
 }
 
 function interpData(interpA, interpB, interpRatio) {
@@ -125,27 +176,26 @@ function interpData(interpA, interpB, interpRatio) {
     const updatedEntities = interpB.dynamicEntities;
 
     Object.keys(dynamicEntities).forEach(function(key,index){
-        if (updatedEntities.hasOwnProperty(key)&&sprites.hasOwnProperty(key)) {
-            let clientSprite = sprites[key];
+        if (updatedEntities.hasOwnProperty(key)) {
+            let clientSprite = clientSprites[key];
             let oldEntity = dynamicEntities[key];
             let newEntity = updatedEntities[key];
             clientSprite.x = (newEntity.x - oldEntity.x) * interpRatio + oldEntity.x;
             clientSprite.y = (newEntity.y - oldEntity.y) * interpRatio + oldEntity.y;
-            //console.log('x: ' + clientSprite.x + "y: " + clientSprite.y);
         }
     });
 }
 
 function refreshSprites(dynamicEntities) {
-    Object.keys(sprites).forEach(function (key, index) {
+    Object.keys(clientSprites).forEach(function (key, index) {
         if (!dynamicEntities.hasOwnProperty(key)) {
-            sprites[key].visible=false;
-            delete sprites.key;
+            clientSprites[key].visible=false;
+            delete clientSprites.key;
         }
     });
 
     Object.keys(dynamicEntities).forEach(function(key,index){
-        if (!sprites.hasOwnProperty(key)) {
+        if (!clientSprites.hasOwnProperty(key)) {
             loadDynamicEntity(dynamicEntities[key]);
         }
     });

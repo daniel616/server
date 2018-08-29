@@ -1,0 +1,311 @@
+{"frames": {
+
+"baron_attackA0001.png":
+{
+	"frame": {"x":1,"y":812,"w":528,"h":376},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":166,"y":116,"w":528,"h":376},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0002.png":
+{
+	"frame": {"x":1,"y":812,"w":528,"h":376},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":166,"y":116,"w":528,"h":376},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0003.png":
+{
+	"frame": {"x":1,"y":1,"w":648,"h":399},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":99,"w":648,"h":399},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0004.png":
+{
+	"frame": {"x":1,"y":1,"w":648,"h":399},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":99,"w":648,"h":399},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0005.png":
+{
+	"frame": {"x":1,"y":402,"w":640,"h":408},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":74,"y":84,"w":640,"h":408},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0006.png":
+{
+	"frame": {"x":1,"y":402,"w":640,"h":408},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":74,"y":84,"w":640,"h":408},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0007.png":
+{
+	"frame": {"x":531,"y":886,"w":509,"h":389},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":158,"y":103,"w":509,"h":389},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0008.png":
+{
+	"frame": {"x":531,"y":886,"w":509,"h":389},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":158,"y":103,"w":509,"h":389},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0009.png":
+{
+	"frame": {"x":700,"y":1597,"w":442,"h":389},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":158,"y":103,"w":442,"h":389},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0010.png":
+{
+	"frame": {"x":700,"y":1597,"w":442,"h":389},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":158,"y":103,"w":442,"h":389},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0011.png":
+{
+	"frame": {"x":700,"y":1597,"w":442,"h":389},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":158,"y":103,"w":442,"h":389},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0012.png":
+{
+	"frame": {"x":324,"y":1610,"w":429,"h":374},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":237,"y":114,"w":429,"h":374},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0013.png":
+{
+	"frame": {"x":324,"y":1610,"w":429,"h":374},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":237,"y":114,"w":429,"h":374},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0014.png":
+{
+	"frame": {"x":1299,"y":402,"w":614,"h":486},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":99,"y":0,"w":614,"h":486},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0015.png":
+{
+	"frame": {"x":1299,"y":402,"w":614,"h":486},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":99,"y":0,"w":614,"h":486},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0016.png":
+{
+	"frame": {"x":1,"y":1610,"w":431,"h":321},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":213,"y":167,"w":431,"h":321},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0017.png":
+{
+	"frame": {"x":1,"y":1610,"w":431,"h":321},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":213,"y":167,"w":431,"h":321},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0018.png":
+{
+	"frame": {"x":510,"y":1277,"w":338,"h":318},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":188,"y":170,"w":338,"h":318},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0019.png":
+{
+	"frame": {"x":510,"y":1277,"w":338,"h":318},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":188,"y":170,"w":338,"h":318},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0020.png":
+{
+	"frame": {"x":1091,"y":1588,"w":452,"h":346},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":203,"y":139,"w":452,"h":346},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0021.png":
+{
+	"frame": {"x":1091,"y":1588,"w":452,"h":346},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":203,"y":139,"w":452,"h":346},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0022.png":
+{
+	"frame": {"x":1414,"y":1239,"w":488,"h":347},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":202,"y":137,"w":488,"h":347},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0023.png":
+{
+	"frame": {"x":1414,"y":1239,"w":488,"h":347},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":202,"y":137,"w":488,"h":347},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0024.png":
+{
+	"frame": {"x":1414,"y":890,"w":496,"h":347},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":194,"y":138,"w":496,"h":347},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0025.png":
+{
+	"frame": {"x":1414,"y":890,"w":496,"h":347},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":194,"y":138,"w":496,"h":347},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0026.png":
+{
+	"frame": {"x":1042,"y":890,"w":502,"h":370},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":192,"y":116,"w":502,"h":370},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0027.png":
+{
+	"frame": {"x":1042,"y":890,"w":502,"h":370},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":192,"y":116,"w":502,"h":370},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0028.png":
+{
+	"frame": {"x":1299,"y":1,"w":630,"h":399},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":99,"w":630,"h":399},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0029.png":
+{
+	"frame": {"x":1299,"y":1,"w":630,"h":399},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":99,"w":630,"h":399},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0030.png":
+{
+	"frame": {"x":651,"y":1,"w":646,"h":441},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":52,"y":63,"w":646,"h":441},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0031.png":
+{
+	"frame": {"x":651,"y":1,"w":646,"h":441},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":52,"y":63,"w":646,"h":441},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0032.png":
+{
+	"frame": {"x":643,"y":444,"w":554,"h":440},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":136,"y":66,"w":554,"h":440},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0033.png":
+{
+	"frame": {"x":643,"y":444,"w":554,"h":440},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":136,"y":66,"w":554,"h":440},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0034.png":
+{
+	"frame": {"x":1,"y":1190,"w":507,"h":418},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":148,"y":87,"w":507,"h":418},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0035.png":
+{
+	"frame": {"x":1,"y":1190,"w":507,"h":418},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":148,"y":87,"w":507,"h":418},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0036.png":
+{
+	"frame": {"x":1439,"y":1588,"w":446,"h":417},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":151,"y":88,"w":446,"h":417},
+	"sourceSize": {"w":714,"h":506}
+},
+"baron_attackA0037.png":
+{
+	"frame": {"x":1439,"y":1588,"w":446,"h":417},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":151,"y":88,"w":446,"h":417},
+	"sourceSize": {"w":714,"h":506}
+}},
+"animations": {
+	"baron_attackA": ["baron_attackA0001.png","baron_attackA0002.png","baron_attackA0003.png","baron_attackA0004.png","baron_attackA0005.png","baron_attackA0006.png","baron_attackA0007.png","baron_attackA0008.png","baron_attackA0009.png","baron_attackA0010.png","baron_attackA0011.png","baron_attackA0012.png","baron_attackA0013.png","baron_attackA0014.png","baron_attackA0015.png","baron_attackA0016.png","baron_attackA0017.png","baron_attackA0018.png","baron_attackA0019.png","baron_attackA0020.png","baron_attackA0021.png","baron_attackA0022.png","baron_attackA0023.png","baron_attackA0024.png","baron_attackA0025.png","baron_attackA0026.png","baron_attackA0027.png","baron_attackA0028.png","baron_attackA0029.png","baron_attackA0030.png","baron_attackA0031.png","baron_attackA0032.png","baron_attackA0033.png","baron_attackA0034.png","baron_attackA0035.png","baron_attackA0036.png","baron_attackA0037.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "attackA.png",
+	"format": "RGBA8888",
+	"size": {"w":1930,"h":2042},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:63ffef7d4fdd812edcc1ae068022489a:0105c9d29d5b701c4e712dfbc98024e1:981b850c0eee892e9efda223082b4173$"
+}
+}

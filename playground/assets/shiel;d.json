@@ -1,0 +1,135 @@
+{"frames": {
+
+"baron_shield0001.png":
+{
+	"frame": {"x":1072,"y":1,"w":493,"h":416},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":17,"w":493,"h":416},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0002.png":
+{
+	"frame": {"x":1,"y":433,"w":482,"h":401},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":34,"y":37,"w":482,"h":401},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0003.png":
+{
+	"frame": {"x":1,"y":1,"w":560,"h":430},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":62,"y":6,"w":560,"h":430},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0004.png":
+{
+	"frame": {"x":1,"y":1,"w":560,"h":430},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":62,"y":6,"w":560,"h":430},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0005.png":
+{
+	"frame": {"x":1,"y":1,"w":560,"h":430},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":62,"y":6,"w":560,"h":430},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0006.png":
+{
+	"frame": {"x":969,"y":433,"w":477,"h":400},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":64,"y":36,"w":477,"h":400},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0007.png":
+{
+	"frame": {"x":969,"y":433,"w":477,"h":400},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":64,"y":36,"w":477,"h":400},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0008.png":
+{
+	"frame": {"x":485,"y":433,"w":482,"h":401},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":34,"y":37,"w":482,"h":401},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0009.png":
+{
+	"frame": {"x":485,"y":433,"w":482,"h":401},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":34,"y":37,"w":482,"h":401},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0010.png":
+{
+	"frame": {"x":1567,"y":1,"w":455,"h":416},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":42,"y":17,"w":455,"h":416},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0011.png":
+{
+	"frame": {"x":1567,"y":1,"w":455,"h":416},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":42,"y":17,"w":455,"h":416},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0012.png":
+{
+	"frame": {"x":563,"y":1,"w":507,"h":430},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":507,"h":430},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0013.png":
+{
+	"frame": {"x":563,"y":1,"w":507,"h":430},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":507,"h":430},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0014.png":
+{
+	"frame": {"x":1448,"y":419,"w":402,"h":432},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":96,"y":0,"w":402,"h":432},
+	"sourceSize": {"w":622,"h":438}
+},
+"baron_shield0015.png":
+{
+	"frame": {"x":1448,"y":419,"w":402,"h":432},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":96,"y":0,"w":402,"h":432},
+	"sourceSize": {"w":622,"h":438}
+}},
+"animations": {
+	"baron_shield": ["baron_shield0001.png","baron_shield0002.png","baron_shield0003.png","baron_shield0004.png","baron_shield0005.png","baron_shield0006.png","baron_shield0007.png","baron_shield0008.png","baron_shield0009.png","baron_shield0010.png","baron_shield0011.png","baron_shield0012.png","baron_shield0013.png","baron_shield0014.png","baron_shield0015.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "shiel;d.png",
+	"format": "RGBA8888",
+	"size": {"w":2023,"h":835},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:7867c10641ffdfc48f073c68ca4c1a61:8908ca37db83fd05fd38e8ca0a5f9ae0:064c05a6da123eb6285500c74d865808$"
+}
+}

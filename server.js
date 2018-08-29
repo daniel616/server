@@ -14,7 +14,7 @@ let playerSpriteData={};
 let staticPlatforms=[];
 let dynamicEntities={};
 
-const FRICTION=0.7;
+const FRICTION=0.8;
 const GRAVITY=4;
 const HEIGHT=600;
 const WIDTH=900;
@@ -64,32 +64,13 @@ io.on('connection',(socket)=>{
         new generateMessage('ADMIN','A NEW USER HAS JOINED US'));
 });
 
-function generateMessage(from,text){
-    this.from=from;
-    this.text=text;
-}
-
-function respawnPlayer(playerData){
-    playerData.health=HEALTH_MAX;
-
-    let xPos=spawnLeft ? 0:WIDTH-playerData.width;
-    playerData.x=xPos;
-    playerData.y=10;
-    spawnLeft=!spawnLeft;
-}
-
-function initializeWorld(){
-    staticPlatforms.push(new worldEntities.Platform(0,100,60,500));
-    staticPlatforms.push(new worldEntities.Platform(WIDTH-60,100,60,800));
-    staticPlatforms.push(new worldEntities.Platform(200,400,500,30));
-}
-
 function update(dt){
     Object.keys(playerSockets).forEach(function(key,index){
         let socket=playerSockets[key];
         let player=playerSpriteData[key];
 
         socket.emit('worldInfo',{dynamicEntities});
+        player.renderStatus="neutral";//TODO: Remove this hack
         socket.emit('fetchCommands', function(playerAction){
             handleMoveCommands(player,playerAction);
             for(let i=0;i<staticPlatforms.length;i++){
@@ -105,11 +86,34 @@ function update(dt){
     });
 }
 
+function generateMessage(from,text){
+    this.from=from;
+    this.text=text;
+}
+
+function respawnPlayer(playerData){
+    playerData.health=HEALTH_MAX;
+
+    playerData.x=spawnLeft ? playerData.width/2:WIDTH-playerData.width/2;
+    playerData.y=10;
+    playerData.vy=0;
+    playerData.vx=0;
+    playerData.direction=spawnLeft? "right":"left";
+    spawnLeft=!spawnLeft;
+}
+
+function initializeWorld(){
+    staticPlatforms.push(new worldEntities.Platform(0,100,60,500));
+    staticPlatforms.push(new worldEntities.Platform(WIDTH-60,100,60,800));
+    staticPlatforms.push(new worldEntities.Platform(200,400,500,30));
+}
+
+
 function handleMoveCommands(player, commands) {
-    var speed =25;
+    let speed =25;
     if(commands.indexOf('87')!==-1){
         //fall
-        player.vy=-GRAVITY*10;
+        player.vy=-GRAVITY*5;
     }
     if(commands.indexOf('83')!==-1){
         //jump
@@ -128,9 +132,9 @@ function handleMoveCommands(player, commands) {
     if(commands.indexOf('191')!==-1&&player.shootReady){
         let attack=new worldEntities.generatedProjectile(player,20,20,10,10000);
         if(player.direction==="right"){
-            attack.vx=5;
+            attack.vx=attack.speed;
         }else if(player.direction==="left"){
-            attack.vx=-5;
+            attack.vx=-attack.speed;
         }
         attack.vy=0;
         dynamicEntities[attack.id]=attack;
@@ -158,24 +162,22 @@ function handleMoveCommands(player, commands) {
                 velocitySign=1;
                 break;
         }
-        player.vx=velocitySign*player.dashSpeed;
+        player.x+=velocitySign*player.dashSpeed;
 
         player.dashReady=false;
         setTimeout(()=>player.dashReady=true,player.dashCoolDown);
-
     }
     if(commands.indexOf('190')!==-1&&player.slashReady){
-        let xDisp;
+        let xDisp=player.width/2+10;
         switch(String(player.direction)){
             case "left":
-                xDisp=-10;
+                xDisp*=-1;
                 break;
             case "right":
-                xDisp=10;
                 break;
         }
         let point={x:player.x+xDisp,y:player.y};
-        console.log('SLASH!'+JSON.stringify(point));
+        //console.log('SLASH!'+JSON.stringify(point));
         Object.keys(playerSpriteData).forEach(function(key,index){
             if(Bump.hitTestPoint(point,playerSpriteData[key])){
                 playerSpriteData[key].health-=5;
@@ -185,10 +187,10 @@ function handleMoveCommands(player, commands) {
 
         player.renderStatus="slash";
         player.slashReady=false;
-        setTimeout(function (){
-            player.dashReady=true;
-            player.renderStatus="neutral";
-        },player.dashCoolDown);
+
+        setTimeout(()=>{
+            player.slashReady=true;
+        },player.slashCoolDown);
 
     }
 }
@@ -213,7 +215,6 @@ function projectileAct(projectileData){
 function playerAct(playerData){
     playerData.x+=playerData.vx;
     playerData.y+=playerData.vy;
-    console.log(JSON.stringify(playerData));
 
     playerData.vy+=GRAVITY;
     for(let i=0;i<staticPlatforms.length;i++){
@@ -230,9 +231,11 @@ function playerAct(playerData){
         playerData.vy=0;
     }
 
-    if(playerData.health<=0){
+    if(playerData.health<=0||playerData.x<-20||playerData.x>WIDTH+20||playerData.y<-20||playerData.y>HEIGHT+20){
         respawnPlayer(playerData);
     }
+
+
 }
 
 const port=process.env.PORT||3000;
