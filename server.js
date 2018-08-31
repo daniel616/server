@@ -18,7 +18,7 @@ const FRICTION=0.8;
 const GRAVITY=4;
 const HEIGHT=600;
 const WIDTH=900;
-const HEALTH_MAX=10;
+const HEALTH_MAX=100;
 let spawnLeft=true;
 
 app.use(express.static(__dirname+'/public'));
@@ -94,7 +94,7 @@ function generateMessage(from,text){
 function respawnPlayer(playerData){
     playerData.health=HEALTH_MAX;
 
-    playerData.x=spawnLeft ? playerData.width/2:WIDTH-playerData.width/2;
+    playerData.x=spawnLeft ? 200:WIDTH-200;
     playerData.y=10;
     playerData.vy=0;
     playerData.vx=0;
@@ -103,9 +103,9 @@ function respawnPlayer(playerData){
 }
 
 function initializeWorld(){
-    staticPlatforms.push(new worldEntities.Platform(0,100,60,500));
-    staticPlatforms.push(new worldEntities.Platform(WIDTH-60,100,60,800));
-    staticPlatforms.push(new worldEntities.Platform(200,400,500,30));
+    //staticPlatforms.push(new worldEntities.Platform(0,100,60,500));
+    //staticPlatforms.push(new worldEntities.Platform(WIDTH-60,100,60,800));
+    staticPlatforms.push(new worldEntities.Platform(0,400,WIDTH,30));
 }
 
 
@@ -168,7 +168,7 @@ function handleMoveCommands(player, commands) {
         setTimeout(()=>player.dashReady=true,player.dashCoolDown);
     }
     if(commands.indexOf('190')!==-1&&player.slashReady){
-        let xDisp=player.width/2+10;
+        let xDisp=player.width/2;
         switch(String(player.direction)){
             case "left":
                 xDisp*=-1;
@@ -176,12 +176,13 @@ function handleMoveCommands(player, commands) {
             case "right":
                 break;
         }
-        let point={x:player.x+xDisp,y:player.y};
+        let rectangle={x:player.x+xDisp,y:player.y,width:player.width/4,height:player.height*1.2};
+        rectangle.anchor={x:0.5,y:0.5};
         //console.log('SLASH!'+JSON.stringify(point));
         Object.keys(playerSpriteData).forEach(function(key,index){
-            if(Bump.hitTestPoint(point,playerSpriteData[key])){
-                playerSpriteData[key].health-=5;
-                console.log('hit!');
+            if(playerSpriteData[key]!==player&&Bump.hitTestRectangle(rectangle,playerSpriteData[key])){
+
+                hitPlayer(player.x,player.y,20,playerSpriteData[key]);
             }
         });
 
@@ -195,14 +196,35 @@ function handleMoveCommands(player, commands) {
     }
 }
 
+function hitPlayer(xSource,ySource,damage,player){
+    //taken from https://stackoverflow.com/questions/3592040/javascript-function-that-works-like-actionscripts-normalize1
+    function normalize(p,len) {
+        if((p.x === 0 && p.y === 0) || len === 0) {
+            return {x:0, y:0};
+        }
+        var angle = Math.atan2(p.y,p.x);
+        var nx = Math.cos(angle) * len;
+        var ny = Math.sin(angle) * len;
+        return {x:nx, y:ny};
+    }
+
+    player.health-=damage;
+    let blastVector=normalize({x:player.x-xSource,y:player.y-ySource},damage*5);
+    player.vx+=Math.round(blastVector.x);
+    player.vy+=Math.round(blastVector.y);
+
+}
+
 function projectileAct(projectileData){
     projectileData.x+=projectileData.vx;
     projectileData.y+=projectileData.vy;
     Object.keys(playerSpriteData).forEach(function(key,index){
-        if(Bump.hitTestRectangle(projectileData,playerSpriteData[key])
-            &&playerSpriteData[key].id!==projectileData.attackerID){
+        let baron=playerSpriteData[key];
+        if(Bump.hitTestRectangle(projectileData,baron)
+            &&baron.id!==projectileData.attackerID){
             delete dynamicEntities[projectileData.id];
-            playerSpriteData[key].health-=projectileData.damage;
+            hitPlayer(projectileData.x,projectileData.y,projectileData.damage,baron);
+
         }
     });
     Object.keys(staticPlatforms).forEach(function(key,index){
@@ -231,10 +253,11 @@ function playerAct(playerData){
         playerData.vy=0;
     }
 
-    if(playerData.health<=0||playerData.x<-20||playerData.x>WIDTH+20||playerData.y<-20||playerData.y>HEIGHT+20){
+    if(playerData.health<=0||playerData.x<-100||playerData.x>WIDTH+100||playerData.y<-100||playerData.y>HEIGHT+100){
         respawnPlayer(playerData);
     }
 
+    //console.log('playerData: '+JSON.stringify(playerData));
 
 }
 

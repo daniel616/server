@@ -6,6 +6,8 @@ const idGenerator={
     }
 };
 
+const PLAYER_MAX_HEALTH=100;
+
 function SpriteData(x,y,width,height,renderKey){
     let data={id:idGenerator.generateID(),x,y,width,height,renderKey};
     data.act=undefined;
@@ -20,7 +22,7 @@ function Player(x,y,width,height){
     let player=SpriteData(x,y,width,height,'player');
     player.direction="right";
     player.renderStatus="neutral";
-    player.health=10;
+    player.health=100;
     player.shootReady=true;
     player.slashReady=true;
     player.dashReady=true;
@@ -35,6 +37,11 @@ function Player(x,y,width,height){
     player.vx=0;
     player.vy=0;
     return player;
+}
+
+function knockBack(player,){
+
+
 }
 
 function generatedProjectile(player, width, height, damage,longevity){
