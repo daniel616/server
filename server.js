@@ -105,18 +105,23 @@ function respawnPlayer(playerData){
 function initializeWorld(){
     //staticPlatforms.push(new worldEntities.Platform(0,100,60,500));
     //staticPlatforms.push(new worldEntities.Platform(WIDTH-60,100,60,800));
-    staticPlatforms.push(new worldEntities.Platform(0,400,WIDTH,30));
+    staticPlatforms.push(new worldEntities.Platform(0,300,WIDTH,30));
+    staticPlatforms.push(new worldEntities.Platform(200,550,WIDTH*0.75,30));
+    let playerData=new worldEntities.Player(250,400,50,70);
+    playerData.act=()=>playerAct(playerData);
+    playerSpriteData["ai"]=playerData;
+    dynamicEntities[playerData.id]= playerData;
 }
 
 
 function handleMoveCommands(player, commands) {
     let speed =25;
     if(commands.indexOf('87')!==-1){
-        //fall
+        //jump
         player.vy=-GRAVITY*5;
     }
     if(commands.indexOf('83')!==-1){
-        //jump
+        //crouch?
         player.y+=speed;
     }
     if(commands.indexOf('68')!==-1){
@@ -153,16 +158,18 @@ function handleMoveCommands(player, commands) {
         //player.cooldown=player.COOLDOWN_INTERVAL;
     }
     if(commands.indexOf('188')!==-1&&player.dashReady){
-        let velocitySign;
-        switch(String(player.direction)){
-            case "left":
-                velocitySign=-1;
-                break;
-            case "right":
-                velocitySign=1;
-                break;
+        let xDir=0,yDir=0;
+        if(commands.indexOf('68')!==-1) xDir=1;
+        if(commands.indexOf('65')!==-1) xDir=-1;
+        if(commands.indexOf('83')!==-1) yDir=1;
+        if(commands.indexOf('87')!==-1) yDir=-1;
+
+        if(xDir!==0||yDir!==0){
+            player.x+=xDir*player.dashSpeed;
+            player.y+=yDir*player.dashSpeed;
+        }else{
+            //TODO: Shield?
         }
-        player.x+=velocitySign*player.dashSpeed;
 
         player.dashReady=false;
         setTimeout(()=>player.dashReady=true,player.dashCoolDown);
@@ -209,7 +216,7 @@ function hitPlayer(xSource,ySource,damage,player){
     }
 
     player.health-=damage;
-    let blastVector=normalize({x:player.x-xSource,y:player.y-ySource},damage*5);
+    let blastVector=normalize({x:player.x-xSource,y:player.y-ySource},damage*3);
     player.vx+=Math.round(blastVector.x);
     player.vy+=Math.round(blastVector.y);
 
