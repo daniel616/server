@@ -61,7 +61,7 @@ io.on('connection',(socket)=>{
     });
 
     io.sockets.emit('newMessage',
-        new generateMessage('ADMIN','A NEW USER HAS JOINED US'));
+        new generateMessage('ADMIN','PHASE THROUGH WALLS! PHASE THROUGH ATTACKS! PHASE PHASE PHASE'));
 });
 
 function update(dt){
