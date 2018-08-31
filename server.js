@@ -60,8 +60,10 @@ io.on('connection',(socket)=>{
         callback();
     });
 
-    io.sockets.emit('newMessage',
-        new generateMessage('ADMIN','PHASE THROUGH WALLS! PHASE THROUGH ATTACKS! PHASE PHASE PHASE'));
+    socket.broadcast.emit('newMessage', new generateMessage('ADMIN', 'someone has joined'));
+
+    socket.emit('newMessage',
+        new generateMessage('ADMIN','PHASE THROUGH WALLS! PHASE THROUGH ATTACKS! PHASE!'));
 });
 
 function update(dt){
