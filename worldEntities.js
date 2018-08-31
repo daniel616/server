@@ -39,10 +39,6 @@ function Player(x,y,width,height){
     return player;
 }
 
-function knockBack(player,){
-
-
-}
 
 function generatedProjectile(player, width, height, damage,longevity){
     let attack=SpriteData(player.x,player.y,width,height,'projectile');
