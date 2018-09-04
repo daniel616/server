@@ -44,7 +44,7 @@ function generatedProjectile(player, width, height, damage,longevity){
     let attack=SpriteData(player.x,player.y,width,height,'projectile');
     attack.longevity=longevity;
     attack.attackerID=player.id;
-    attack.speed=20;
+    attack.speed=30;
     attack.damage=damage;
     attack.renderStatus="neutral";
     return attack;

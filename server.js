@@ -118,24 +118,8 @@ function initializeWorld(){
 
 function handleMoveCommands(player, commands) {
     let speed =25;
-    if(commands.indexOf('87')!==-1){
-        //jump
-        player.vy=-GRAVITY*5;
-    }
-    if(commands.indexOf('83')!==-1){
-        //crouch?
-        player.y+=speed;
-    }
-    if(commands.indexOf('68')!==-1){
-        player.x+=speed;
-        player.vx=Math.max(player.vx,0);
-        player.direction="right";
-    }
-    if(commands.indexOf('65')!==-1){
-        player.x-=speed;
-        player.vx=Math.min(player.vx,0);
-        player.direction="left";
-    }
+
+
     if(commands.indexOf('191')!==-1&&player.shootReady){
         let attack=new worldEntities.generatedProjectile(player,20,20,10,10000);
         if(player.direction==="right"){
@@ -202,6 +186,25 @@ function handleMoveCommands(player, commands) {
             player.slashReady=true;
         },player.slashCoolDown);
 
+    }
+
+    if(commands.indexOf('87')!==-1){
+        //jump
+        player.vy=-GRAVITY*5;
+    }
+    if(commands.indexOf('83')!==-1){
+        //crouch?
+        player.y+=speed;
+    }
+    if(commands.indexOf('68')!==-1){
+        player.x+=speed;
+        player.vx=Math.max(player.vx,0);
+        player.direction="right";
+    }
+    if(commands.indexOf('65')!==-1){
+        player.x-=speed;
+        player.vx=Math.min(player.vx,0);
+        player.direction="left";
     }
 }
 
