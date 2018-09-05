@@ -87,7 +87,6 @@ function generateSprite(objectData){
     console.log(JSON.stringify(objectData));
 
     if(objectData.hasOwnProperty('anchor')){
-        console.log('Found anchor')
          newSprite.anchor.set(objectData.anchor.x,objectData.anchor.y);
      }
 
@@ -159,9 +158,11 @@ function updateRendering(sprites, dynamicEntities){
             console.log('renderDirections: '+JSON.stringify(renderDirections));
 
             if(renderDirections.hasOwnProperty('animationFrameNumbers')){
-                console.log('tried to render animation');
-                //sprite.playAnimation([1,2,3,4,5,6,7,8,9,10]);
                 sprite.loop=renderDirections.loop;
+                if(renderDirections.animationSpeed){
+                    console.log('found animation speed')
+                    sprite.animationSpeed=renderDirections.animationSpeed;
+                }
                 sprite.playAnimation(renderDirections.animationFrameNumbers);
             }else {
                 sprite.show(renderDirections);

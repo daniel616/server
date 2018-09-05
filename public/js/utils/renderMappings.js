@@ -5,10 +5,12 @@ const mappings = {
             slash:{
                 animationFrameNumbers:[10,20],
                 loop:false,
+                animationSpeed:1
             },
             shoot:{
                 animationFrameNumbers:[1,10],
                 loop:false,
+                animationSpeed:1
             },
             sprint:{
 

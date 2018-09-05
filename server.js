@@ -190,7 +190,10 @@ function handleMoveCommands(player, commands) {
 
     if(commands.indexOf('87')!==-1){
         //jump
-        player.vy=-GRAVITY*5;
+        if(player.jumpReady){
+            player.vy=-GRAVITY*7;
+            player.jumpReady=false;
+        }
     }
     if(commands.indexOf('83')!==-1){
         //crouch?
@@ -234,8 +237,11 @@ function projectileAct(projectileData){
         let baron=playerSpriteData[key];
         if(Bump.hitTestRectangle(projectileData,baron)
             &&baron.id!==projectileData.attackerID){
-            delete dynamicEntities[projectileData.id];
+
             hitPlayer(projectileData.x,projectileData.y,projectileData.damage,baron);
+            if(dynamicEntities.hasOwnProperty(projectileData.id)){
+                delete dynamicEntities[projectileData.id];
+            }
 
         }
     });
@@ -252,7 +258,7 @@ function playerAct(playerData){
 
     playerData.vy+=GRAVITY;
     for(let i=0;i<staticPlatforms.length;i++){
-        if(Bump.rectangleCollision(playerData,staticPlatforms[i])){
+        if(Bump.playerRectangleCollision(playerData,staticPlatforms[i])){
             playerData.vy*=FRICTION;
             playerData.vx*=FRICTION;
         }
