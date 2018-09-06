@@ -30,7 +30,7 @@ function Player(x,y,width,height){
     player.slashCoolDown=750;
     player.shootCoolDown=1000;
     player.dashCoolDown=1000;
-    player.dashSpeed=75;
+    player.dashSpeed=100;
     player.anchor={
         x:0.5,
         y:0.5,

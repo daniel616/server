@@ -119,6 +119,11 @@ function initializeWorld(){
 function handleMoveCommands(player, commands) {
     let speed =25;
 
+    if(commands.indexOf('16')!==-1){
+        speed=50;
+    }else{
+        speed=25;
+    }
 
     if(commands.indexOf('191')!==-1&&player.shootReady){
         let attack=new worldEntities.generatedProjectile(player,20,20,10,10000);
@@ -153,12 +158,11 @@ function handleMoveCommands(player, commands) {
         if(xDir!==0||yDir!==0){
             player.x+=xDir*player.dashSpeed;
             player.y+=yDir*player.dashSpeed;
+            player.dashReady=false;
+            setTimeout(()=>player.dashReady=true,player.dashCoolDown);
         }else{
             //TODO: Shield?
         }
-
-        player.dashReady=false;
-        setTimeout(()=>player.dashReady=true,player.dashCoolDown);
     }
     if(commands.indexOf('190')!==-1&&player.slashReady){
         let xDisp=player.width/2;

@@ -83,6 +83,8 @@ function generateSprite(objectData){
     newSprite.y = objectData.y;
     newSprite.width=objectData.width;
     newSprite.height=objectData.height;
+    //TODO:REmove
+    newSprite.animationSpeed=0;
 
     console.log(JSON.stringify(objectData));
 
@@ -159,8 +161,8 @@ function updateRendering(sprites, dynamicEntities){
 
             if(renderDirections.hasOwnProperty('animationFrameNumbers')){
                 sprite.loop=renderDirections.loop;
-                if(renderDirections.animationSpeed){
-                    console.log('found animation speed')
+                if(renderDirections.hasOwnProperty('animationSpeed')){
+                    console.log('found animation speed'+renderDirections.animationSpeed);
                     sprite.animationSpeed=renderDirections.animationSpeed;
                 }
                 sprite.playAnimation(renderDirections.animationFrameNumbers);
