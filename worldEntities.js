@@ -23,7 +23,6 @@ function Player(x,y,width,height){
     player.direction="right";
     player.renderStatus="neutral";
     player.health=100;
-    player.jumpReady=false;
     player.shootReady=true;
     player.slashReady=true;
     player.dashReady=true;

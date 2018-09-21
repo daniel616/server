@@ -194,9 +194,22 @@ function handleMoveCommands(player, commands) {
 
     if(commands.indexOf('87')!==-1){
         //jump
-        if(player.jumpReady){
+        let jumpRect={};
+        jumpRect.width=player.width;
+        jumpRect.height=10;
+        jumpRect.anchor={x:0.5,y:0.5};
+        jumpRect.x=player.x;
+        jumpRect.y=player.y+player.height/2;
+
+        let jumpReady=false;
+        Object.values(staticPlatforms).forEach(function(platform){
+            if(Bump.hitTestRectangle(jumpRect,platform)){
+                jumpReady=true;
+            }
+        });
+
+        if(jumpReady){
             player.vy=-GRAVITY*7;
-            player.jumpReady=false;
         }
     }
     if(commands.indexOf('83')!==-1){
@@ -262,7 +275,8 @@ function playerAct(playerData){
 
     playerData.vy+=GRAVITY;
     for(let i=0;i<staticPlatforms.length;i++){
-        if(Bump.playerRectangleCollision(playerData,staticPlatforms[i])){
+        //TODO:function implicitly does two things
+        if(Bump.rectangleCollision(playerData,staticPlatforms[i])){
             playerData.vy*=FRICTION;
             playerData.vx*=FRICTION;
         }

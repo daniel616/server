@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4f2fc4f9-78b3-4ece-ad25-c00ff10953a8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bastBump.js" afterPath="$PROJECT_DIR$/bastBump.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/playerClient.js" afterPath="$PROJECT_DIR$/public/js/playerClient.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/utils/renderMappings.js" afterPath="$PROJECT_DIR$/public/js/utils/renderMappings.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldEntities.js" afterPath="$PROJECT_DIR$/worldEntities.js" />
     </list>
@@ -35,7 +34,7 @@
         <entry file="file://$PROJECT_DIR$/public/js/utils/renderMappings.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
-              <caret line="10" column="39" lean-forward="true" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+              <caret line="10" column="39" lean-forward="false" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -44,7 +43,7 @@
       <file leaf-file-name="playerClient.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/playerClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
+            <state relative-caret-position="-1068">
               <caret line="85" column="17" lean-forward="false" selection-start-line="85" selection-start-column="17" selection-end-line="85" selection-end-column="17" />
               <folding />
             </state>
@@ -54,18 +53,38 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2319">
-              <caret line="164" column="9" lean-forward="false" selection-start-line="164" selection-start-column="9" selection-end-line="164" selection-end-column="9" />
+            <state relative-caret-position="157">
+              <caret line="204" column="66" lean-forward="false" selection-start-line="204" selection-start-column="66" selection-end-line="204" selection-end-column="66" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/index.html">
+      <file leaf-file-name="bump.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bump.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="24" column="74" lean-forward="true" selection-start-line="24" selection-start-column="74" selection-end-line="24" selection-end-column="74" />
+            <state relative-caret-position="15">
+              <caret line="186" column="32" lean-forward="true" selection-start-line="186" selection-start-column="32" selection-end-line="186" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="worldEntities.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/worldEntities.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="24" column="22" lean-forward="false" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bastBump.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bastBump.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="563">
+              <caret line="300" column="0" lean-forward="true" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -78,29 +97,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="baron_attackA0009.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/Baron_Sprites/baronattackA/baron_attackA0009.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="baron_attackA0010.png" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/Baron_Sprites/baronattackA/baron_attackA0010.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="baron_attackA0006.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/Baron_Sprites/baronattackA/baron_attackA0006.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="baron_attackA0007.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/Baron_Sprites/baronattackA/baron_attackA0007.png">
           <provider selected="true" editor-type-id="images">
             <state />
           </provider>
@@ -144,6 +142,7 @@
       <find>respawn</find>
       <find>res</find>
       <find>knockbac</find>
+      <find>bump.hit</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -197,12 +196,12 @@
         <option value="$PROJECT_DIR$/public/js/utils/dataQueue.js" />
         <option value="$PROJECT_DIR$/playground/animation.js" />
         <option value="$PROJECT_DIR$/public/css/sockets.css" />
-        <option value="$PROJECT_DIR$/bastBump.js" />
-        <option value="$PROJECT_DIR$/worldEntities.js" />
         <option value="$PROJECT_DIR$/public/js/utils/renderMappings.js" />
         <option value="$PROJECT_DIR$/public/js/playerClient.js" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/bastBump.js" />
+        <option value="$PROJECT_DIR$/worldEntities.js" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -225,8 +224,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="163" />
-    <option name="y" value="156" />
+    <option name="x" value="123" />
+    <option name="y" value="23" />
     <option name="width" value="1264" />
     <option name="height" value="805" />
   </component>
@@ -246,7 +245,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -267,18 +265,13 @@
             </path>
             <path>
               <item name="sockets" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sockets" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sockets" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -374,14 +367,18 @@
       <workItem from="1535727849853" duration="1084000" />
       <workItem from="1536023030294" duration="2122000" />
       <workItem from="1536252066483" duration="1602000" />
+      <workItem from="1536258992555" duration="76000" />
+      <workItem from="1536346636265" duration="1129000" />
+      <workItem from="1537384671093" duration="354000" />
+      <workItem from="1537559231750" duration="1607000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="250671000" />
+    <option name="totallyTimeSpent" value="253837000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="163" y="156" width="1264" height="805" extended-state="0" />
+    <frame x="123" y="23" width="1264" height="805" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23022152" sideWeight="0.49525103" order="0" side_tool="false" content_ui="combo" />
@@ -456,7 +453,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2853">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -465,7 +461,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="675">
           <caret line="2561" column="26" lean-forward="false" selection-start-line="2561" selection-start-column="26" selection-end-line="2561" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -473,7 +468,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -536,7 +530,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="675">
           <caret line="79" column="1" lean-forward="true" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -551,14 +544,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="29" column="64" lean-forward="false" selection-start-line="29" selection-start-column="64" selection-end-line="29" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bump.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1537">
-          <caret line="186" column="32" lean-forward="true" selection-start-line="186" selection-start-column="32" selection-end-line="186" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -577,14 +562,6 @@
     <entry file="file://$PROJECT_DIR$/public/assets/shiel;d.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bastBump.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2687">
-          <caret line="379" column="47" lean-forward="true" selection-start-line="379" selection-start-column="47" selection-end-line="379" selection-end-column="47" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/css/creative.css">
@@ -640,7 +617,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="443">
           <caret line="49" column="18" lean-forward="false" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -653,15 +629,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/worldEntities.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -720,34 +687,58 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="74" lean-forward="false" selection-start-line="24" selection-start-column="74" selection-end-line="24" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/utils/renderMappings.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
-          <caret line="10" column="39" lean-forward="true" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+          <caret line="10" column="39" lean-forward="false" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bump.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="186" column="32" lean-forward="true" selection-start-line="186" selection-start-column="32" selection-end-line="186" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/playerClient.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
+        <state relative-caret-position="-1068">
           <caret line="85" column="17" lean-forward="false" selection-start-line="85" selection-start-column="17" selection-end-line="85" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worldEntities.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="24" column="22" lean-forward="false" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2319">
-          <caret line="164" column="9" lean-forward="false" selection-start-line="164" selection-start-column="9" selection-end-line="164" selection-end-column="9" />
+        <state relative-caret-position="157">
+          <caret line="204" column="66" lean-forward="false" selection-start-line="204" selection-start-column="66" selection-end-line="204" selection-end-column="66" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
+    <entry file="file://$PROJECT_DIR$/bastBump.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="24" column="74" lean-forward="true" selection-start-line="24" selection-start-column="74" selection-end-line="24" selection-end-column="74" />
+        <state relative-caret-position="563">
+          <caret line="300" column="0" lean-forward="true" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -251,84 +251,6 @@ function rectangleCollision(r1, r2, bounce = false, global = true) {
     return collision;
 }
 
-function playerRectangleCollision(player, r2, bounce = false, global = true) {
-
-    //Add collision properties
-    if (!player._bumpPropertiesAdded) addCollisionProperties(player);
-    if (!r2._bumpPropertiesAdded) addCollisionProperties(r2);
-
-    let collision, combinedHalfWidths, combinedHalfHeights,
-        overlapX, overlapY, vx, vy;
-
-    //Calculate the distance vector
-    if (global) {
-        vx = (player.gx + Math.abs(player.halfWidth) - player.xAnchorOffset) - (r2.gx + Math.abs(r2.halfWidth) - r2.xAnchorOffset);
-        vy = (player.gy + Math.abs(player.halfHeight) - player.yAnchorOffset) - (r2.gy + Math.abs(r2.halfHeight) - r2.yAnchorOffset);
-    } else {
-        //vx = r1.centerX - r2.centerX;
-        //vy = r1.centerY - r2.centerY;
-        vx = (player.x + Math.abs(player.halfWidth) - player.xAnchorOffset) - (r2.x + Math.abs(r2.halfWidth) - r2.xAnchorOffset);
-        vy = (player.y + Math.abs(player.halfHeight) - player.yAnchorOffset) - (r2.y + Math.abs(r2.halfHeight) - r2.yAnchorOffset);
-    }
-
-    //Figure out the combined half-widths and half-heights
-    combinedHalfWidths = Math.abs(player.halfWidth) + Math.abs(r2.halfWidth);
-    combinedHalfHeights = Math.abs(player.halfHeight) + Math.abs(r2.halfHeight);
-
-    //Check whether vx is less than the combined half widths
-    if (Math.abs(vx) < combinedHalfWidths) {
-
-        //A collision might be occurring!
-        //Check whether vy is less than the combined half heights
-        if (Math.abs(vy) < combinedHalfHeights) {
-            //A collision has occurred! This is good!
-            //Find out the size of the overlap on both the X and Y axes
-            overlapX = combinedHalfWidths - Math.abs(vx);
-            overlapY = combinedHalfHeights - Math.abs(vy);
-
-            if (overlapX >= overlapY) {
-                //The collision is happening on the X axis
-                //But on which side? vy can tell us
-
-                if (vy > 0) {
-                    collision = "top";
-                    //Move the rectangle out of the collision
-                    player.y = player.y + overlapY;
-                    player.vy = 0;
-                } else {
-                    collision = "bottom";
-                    //Move the rectangle out of the collision
-                    player.jumpReady=true;
-                    player.y = player.y - overlapY;
-                    player.vy = 0;
-                }
-            } else {
-
-                if (vx > 0) {
-                    collision = "left";
-                    //Move the rectangle out of the collision
-                    player.x = player.x + overlapX;
-                    player.vx = 0;
-                } else {
-                    collision = "right";
-                    //Move the rectangle out of the collision
-                    player.x = player.x - overlapX;
-                    player.vx = 0;
-                }
-
-            }
-        } else {
-            //No collision
-        }
-    } else {
-        //No collision
-    }
-
-
-    //Return the collision string. it will be either "top", "right",
-    //"bottom", or "left" depending on which side of r1 is touching r2.
-    return collision;
-}
 
 function hitTestRectangle(r1, r2, global = false) {
 
@@ -377,4 +299,4 @@ function hitTestRectangle(r1, r2, global = false) {
     return hit;
 }
 
-module.exports = {rectangleCollision, hitTestRectangle,hitTestPoint,playerRectangleCollision};
+module.exports = {rectangleCollision, hitTestRectangle,hitTestPoint};
