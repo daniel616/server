@@ -24,6 +24,7 @@ let spawnLeft=true;
 app.use(express.static(__dirname+'/public'));
 
 const UPDATE_INTERVAL_MS=100;
+const METEOR_INTERVAL_MS=10000;
 
 io.on('connection',(socket)=>{
     socket.on('handShake',(callback)=>{
@@ -297,6 +298,10 @@ function playerAct(playerData){
 
 }
 
+function meteorHandler(){
+
+}
+
 const port=process.env.PORT||3000;
 
 server.listen(port, ()=>{
@@ -304,4 +309,5 @@ server.listen(port, ()=>{
     console.log(`Server is up on port ${port}`);
 
     const update_interval = setInterval(update, UPDATE_INTERVAL_MS);
+    const meteor_interal = setInterval(meteorHandler,METEOR_INTERVAL_MS);
 });
