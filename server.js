@@ -127,7 +127,7 @@ function handleMoveCommands(player, commands) {
     }
 
     if(commands.indexOf('191')!==-1&&player.shootReady){
-        let attack=new worldEntities.generatedProjectile(player,20,20,10,10000);
+        let attack=new worldEntities.playerProjectile(player,20,20,10,10000);
         if(player.direction==="right"){
             attack.vx=attack.speed;
         }else if(player.direction==="left"){

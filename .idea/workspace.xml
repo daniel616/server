@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f2fc4f9-78b3-4ece-ad25-c00ff10953a8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/worldEntities.js" afterPath="$PROJECT_DIR$/worldEntities.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -51,8 +49,8 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="543">
-              <caret line="307" column="22" lean-forward="false" selection-start-line="307" selection-start-column="22" selection-end-line="307" selection-end-column="22" />
+            <state relative-caret-position="3765">
+              <caret line="251" column="14" lean-forward="false" selection-start-line="251" selection-start-column="4" selection-end-line="251" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -141,6 +139,7 @@
       <find>res</find>
       <find>knockbac</find>
       <find>bump.hit</find>
+      <find>projectile</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -198,8 +197,8 @@
         <option value="$PROJECT_DIR$/public/js/playerClient.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/bastBump.js" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/worldEntities.js" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -369,12 +368,12 @@
       <workItem from="1536346636265" duration="1129000" />
       <workItem from="1537384671093" duration="354000" />
       <workItem from="1537559231750" duration="2547000" />
-      <workItem from="1537713608108" duration="30000" />
+      <workItem from="1537713608108" duration="419000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="254807000" />
+    <option name="totallyTimeSpent" value="255196000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="123" y="23" width="1264" height="805" extended-state="0" />
@@ -689,6 +688,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="24" column="74" lean-forward="false" selection-start-line="24" selection-start-column="74" selection-end-line="24" selection-end-column="74" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -734,8 +734,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="543">
-          <caret line="307" column="22" lean-forward="false" selection-start-line="307" selection-start-column="22" selection-end-line="307" selection-end-column="22" />
+        <state relative-caret-position="3765">
+          <caret line="251" column="14" lean-forward="false" selection-start-line="251" selection-start-column="4" selection-end-line="251" selection-end-column="14" />
           <folding />
         </state>
       </provider>
