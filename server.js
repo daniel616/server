@@ -103,6 +103,7 @@ function respawnPlayer(playerData){
     playerData.vx=0;
     playerData.direction=spawnLeft? "right":"left";
     spawnLeft=!spawnLeft;
+    console.log('got here')
 }
 
 function initializeWorld(){
@@ -309,5 +310,5 @@ server.listen(port, ()=>{
     console.log(`Server is up on port ${port}`);
 
     const update_interval = setInterval(update, UPDATE_INTERVAL_MS);
-    const meteor_interal = setInterval(meteorHandler,METEOR_INTERVAL_MS);
+    //const meteor_interal = setInterval(meteorHandler,METEOR_INTERVAL_MS);
 });
