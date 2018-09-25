@@ -204,8 +204,9 @@ function handleMoveCommands(player, commands) {
         jumpRect.y=player.y+player.height/2;
 
         let jumpReady=false;
-        Object.values(staticPlatforms).forEach(function(platform){
-            if(Bump.hitTestRectangle(jumpRect,platform)){
+
+        Object.keys(staticPlatforms).forEach(function(key,index){
+            if(Bump.hitTestRectangle(jumpRect,staticPlatforms[key])){
                 jumpReady=true;
             }
         });
