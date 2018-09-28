@@ -53,7 +53,11 @@ function playerProjectile(player, width, height, damage,longevity){
 function generatedProjectile(x,y, width, height, damage,longevity){
     let attack=SpriteData(x,y,width,height,'projectile');
     attack.longevity=longevity;
-    attack.attackerID=player.id;
+    attack.attackerID='world';
+    attack.anchor={
+        x:0.5,
+        y:0.5,
+    };
     attack.speed=30;
     attack.damage=damage;
     attack.renderStatus="neutral";

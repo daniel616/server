@@ -103,14 +103,11 @@ function respawnPlayer(playerData){
     playerData.vx=0;
     playerData.direction=spawnLeft? "right":"left";
     spawnLeft=!spawnLeft;
-    console.log('got here')
 }
 
 function initializeWorld(){
-    //staticPlatforms.push(new worldEntities.Platform(0,100,60,500));
-    //staticPlatforms.push(new worldEntities.Platform(WIDTH-60,100,60,800));
-    staticPlatforms.push(new worldEntities.Platform(0,300,WIDTH,30));
-    staticPlatforms.push(new worldEntities.Platform(200,550,WIDTH*0.75,30));
+    staticPlatforms.push(new worldEntities.Platform(0,500,WIDTH,30));
+    staticPlatforms.push(new worldEntities.Platform(WIDTH/2,350,60,150));
     let playerData=new worldEntities.Player(250,400,50,70);
     playerData.act=()=>playerAct(playerData);
     playerSpriteData["ai"]=playerData;
@@ -301,8 +298,23 @@ function playerAct(playerData){
 }
 
 function meteorHandler(){
-
+    function randMeteor(){
+        let x=Math.floor(Math.random()*WIDTH);
+        let vx=Math.floor((0.5-Math.random())*10);
+        let size=Math.floor(Math.random()*50+25);
+        let vy=Math.floor(Math.random()*10)+10;
+        let meteor = new worldEntities.generatedProjectile(x,0,size,size, size/2, 20);
+        meteor.act=()=>projectileAct(meteor);
+        meteor.vy=vy;
+        meteor.vx=vx;
+        dynamicEntities[meteor.id]=meteor;
+    }
+    for(let i=0;i<5;i++){
+        randMeteor();
+    }
 }
+
+
 
 const port=process.env.PORT||3000;
 
@@ -311,5 +323,5 @@ server.listen(port, ()=>{
     console.log(`Server is up on port ${port}`);
 
     const update_interval = setInterval(update, UPDATE_INTERVAL_MS);
-    //const meteor_interal = setInterval(meteorHandler,METEOR_INTERVAL_MS);
+    const meteor_interval = setInterval(meteorHandler,METEOR_INTERVAL_MS);
 });
