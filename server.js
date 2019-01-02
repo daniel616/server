@@ -64,7 +64,7 @@ io.on('connection',(socket)=>{
     socket.broadcast.emit('newMessage', new generateMessage('ADMIN', 'someone has joined'));
 
     socket.emit('newMessage',
-        new generateMessage('ADMIN','PHASE THROUGH WALLS! PHASE THROUGH ATTACKS! PHASE!'));
+        new generateMessage('ADMIN','Press "," to phase through walls'));
 });
 
 function update(dt){
