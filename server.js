@@ -323,5 +323,5 @@ server.listen(port, ()=>{
     console.log(`Server is up on port ${port}`);
 
     const update_interval = setInterval(update, UPDATE_INTERVAL_MS);
-    const meteor_interval = setInterval(meteorHandler,METEOR_INTERVAL_MS);
+    //const meteor_interval = setInterval(meteorHandler,METEOR_INTERVAL_MS);
 });

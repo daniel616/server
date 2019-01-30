@@ -6,7 +6,7 @@ let clientSprites={};
 
 const RENDER_INTERVAL=10;
 
-let userName='DIO';
+let userName='ANON';
 
 
 let type = "WebGL";
