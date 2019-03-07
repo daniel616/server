@@ -3,6 +3,7 @@ const socketIO=require('socket.io');
 const http=require('http');
 const Bump=require('./bastBump');
 const worldEntities=require('./worldEntities');
+const initEntities=require('./initEntities');
 
 let app=express();
 let server = http.createServer(app);
@@ -106,8 +107,9 @@ function respawnPlayer(playerData){
 }
 
 function initializeWorld(){
-    staticPlatforms.push(new worldEntities.Platform(0,500,WIDTH,30));
-    staticPlatforms.push(new worldEntities.Platform(WIDTH/2,350,60,150));
+    initEntities.startingEntities().forEach(function (entity) {
+        staticPlatforms.push(entity);
+    });
     let playerData=new worldEntities.Player(250,400,50,70);
     playerData.act=()=>playerAct(playerData);
     playerSpriteData["ai"]=playerData;
