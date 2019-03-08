@@ -37,6 +37,6 @@ const mappings = {
     },
 
     projectile: {
-        spriteImage: "platform.png"
+        spriteImage: "star.png"
     }
 };

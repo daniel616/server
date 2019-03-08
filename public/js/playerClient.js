@@ -30,7 +30,7 @@ const resources=Loader.resources;
 let su = new SpriteUtilities(PIXI);
 
 
-Loader.add(["assets/platform.png","assets/run.json","assets/baron/attackA.json"])
+Loader.add(["assets/platform.png","assets/run.json","assets/baron/attackA.json","assets/star.png"])
     .load(setup);
 
 function setup(){
@@ -84,7 +84,7 @@ function generateSprite(objectData){
     newSprite.width=objectData.width;
     newSprite.height=objectData.height;
     //TODO:REmove
-    newSprite.animationSpeed=0;
+   // newSprite.animationSpeed=0;
 
     console.log(JSON.stringify(objectData));
 

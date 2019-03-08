@@ -98,7 +98,7 @@ function generateMessage(from,text){
 function respawnPlayer(playerData){
     playerData.health=HEALTH_MAX;
 
-    playerData.x=spawnLeft ? 200:WIDTH-200;
+    playerData.x=spawnLeft ? 25:WIDTH-25;
     playerData.y=10;
     playerData.vy=0;
     playerData.vx=0;
