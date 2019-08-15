@@ -17,6 +17,18 @@ a{
 
 }
 
+img{
+    width:75%;
+    max-width:400px;
+}
+
+.column{
+    display: table-cell;
+}
+#rcolumn{
+    min-width:150px;
+}
+
 
 
 .links{
