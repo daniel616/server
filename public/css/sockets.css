@@ -1,7 +1,7 @@
 
 
 #wrapper{
-    width:75%;
+    width:100%;
     height:100%;
     display:table;
     margin:auto;
@@ -18,10 +18,16 @@
 }
 
 #chat {
-    width: 25%;
+    min-width: 200px;
     border: solid thin;
     overflow: scroll;
     padding: 10px;
+}
+
+@media screen and (max-width: 600px){
+    #chat{
+        display: block;
+    }
 }
 
 
